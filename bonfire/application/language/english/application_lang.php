@@ -108,6 +108,7 @@ $lang['bf_new']					= 'New';
 $lang['bf_required_note']		= 'Required fields are in <b>bold</b>.';
 
 $lang['bf_show_profiler']		= 'Show Profiler?';
+$lang['bf_protected_role']		= 'Protected Role?';
 
 //--------------------------------------------------------------------
 // MY_Model

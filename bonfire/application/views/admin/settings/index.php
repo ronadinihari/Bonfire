@@ -75,6 +75,16 @@
 				<option value="2592000" <?php echo config_item('auth.remember_length') == '2592000' ? 'selected="selected"' : '' ?>>30 <?php echo lang('bf_days') ?></option>
 			</select>
 		</div>
+		
+		<div>
+			<label><?php echo lang('bf_protected_role') ?></label>
+			<select name="protected_role" id="protected_role">
+				<?php foreach($all_roles as $role) : ?> 
+				<option value="<?php echo $role->role_id; ?>" <?php echo ((config_item('site.protected_role') == $role->role_id) ?  'selected="selected"' : '') ?>><?php echo $role->role_name; ?></option>
+				<?php endforeach; ?>
+				
+			</select>
+		</div>
 	
 	</fieldset>
 	
