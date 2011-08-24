@@ -79,7 +79,8 @@
 		<div>
 			<label><?php echo lang('bf_protected_role') ?></label>
 			<select name="protected_role" id="protected_role">
-				<?php foreach($all_roles as $role) : ?> 
+				<option value="0"><?php echo lang('bf_no_protected_roles') ?></option>
+				<?php foreach($all_roles as $role) : ?>
 				<option value="<?php echo $role->role_id; ?>" <?php echo ((config_item('site.protected_role') == $role->role_id) ?  'selected="selected"' : '') ?>><?php echo $role->role_name; ?></option>
 				<?php endforeach; ?>
 				
