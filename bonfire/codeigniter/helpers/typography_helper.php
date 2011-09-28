@@ -39,9 +39,7 @@ if ( ! function_exists('nl2br_except_pre'))
 	function nl2br_except_pre($str)
 	{
 		$CI =& get_instance();
-
 		$CI->load->library('typography');
-
 		return $CI->typography->nl2br_except_pre($str);
 	}
 }
@@ -82,11 +80,16 @@ if ( ! function_exists('auto_typography'))
  */
 if ( ! function_exists('entity_decode'))
 {
-	function entity_decode($str, $charset='UTF-8')
+	function entity_decode($str, $charset = NULL)
 	{
-		$CI =& get_instance();
-		$CI->load->library('security');
-		return $CI->security->entity_decode($str, $charset);
+		global $SEC;
+		
+		if (empty($charset))
+		{
+			$charset = config_item('charset');
+		}
+		
+		return $SEC->entity_decode($str, $charset);
 	}
 }
 
