@@ -57,6 +57,8 @@ class Contexts {
 	*/
 	public static function render_menu($mode='icon')
 	{
+		self::$ci->benchmark->mark('context_menu_start');
+	
 		$contexts = self::$ci->config->item('contexts');
 	
 		if (empty($contexts) || !is_array($contexts) || !count($contexts))
@@ -90,7 +92,7 @@ class Contexts {
 				$id = 'tb_'. $context;
 				$title = lang('bf_context_'. $context);
 				
-				$nav .= "<li class='dropdown {$class}'><a href='{$url}' id='{$id}' title='{$title}'>";
+				$nav .= "<li class='dropdown {$class}'><a href='{$url}' id='{$id}' class='dropdown-toggle' title='{$title}'>";
 				
 				// Image
 				if ($mode=='icon' || $mode=='both')
@@ -111,6 +113,8 @@ class Contexts {
 				$nav .= "</li>";
 			}
 		}
+		
+		self::$ci->benchmark->mark('context_menu_end');
 		
 		return $nav;
 	}

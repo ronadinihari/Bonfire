@@ -28,7 +28,7 @@
 		<?php echo Template::message(); ?>
 	</div>
 
-	<div class="topbar" id="topbar">
+	<div class="topbar" id="topbar" data-dropdown="dropdown">
 		<div class="topbar-inner">
 		<div class="container-fluid">
 			<a class="brand" href="<?php echo site_url(); ?>" target="_blank"><?php echo config_item('site.title') ?></a>
@@ -37,7 +37,9 @@
 			</ul>
 			<ul class="nav secondary-nav">
 				<li class="dropdown">
-					<a href="<?php echo site_url(SITE_AREA .'/settings/users/edit/'. $this->auth->user_id()) ?>" id="tb_email" title="<?php echo lang('bf_user_settings') ?>"><?php echo config_item('auth.use_usernames') ? (config_item('auth.use_own_names') ? $this->auth->user_name() : $this->auth->username()) : $this->auth->email() ?></a>
+					<a href="<?php echo site_url(SITE_AREA .'/settings/users/edit/'. $this->auth->user_id()) ?>" id="tb_email" class="dropdown-toggle" title="<?php echo lang('bf_user_settings') ?>">
+						<?php echo config_item('auth.use_usernames') ? (config_item('auth.use_own_names') ? $this->auth->user_name() : $this->auth->username()) : $this->auth->email() ?>
+					</a>
 					
 					<ul class="dropdown-menu">
 						<li>
