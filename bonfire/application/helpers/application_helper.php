@@ -195,7 +195,7 @@ function module_list($exclude_core=false)
 		true/false
  */
 function module_controller_exists($controller=null, $module=null)
-{
+{	
 	if (empty($controller) || empty($module))
 	{
 		return false;
@@ -409,83 +409,6 @@ function module_config($module_name=null, $return_full=false)
 
 //--------------------------------------------------------------------
 
-
-//--------------------------------------------------------------------
-// !CONTEXT HELPERS
-//--------------------------------------------------------------------
-
-/*
-	Function: context_nav()
-	
-	Builds the navigation used in the admin theme for the main contexts
-	list. 
-	
-	Parameters:
-		$mode	- The type of toolbar buttons to create. 
-					Valid options are 'icon', 'text', 'both'
-	
-	Returns:
-		A string with the toolbar items required for the context nav.
-*/
-function context_nav($mode='icon')
-{ 
-	$contexts = config_item('contexts');
-	
-	if (empty($contexts) || !is_array($contexts) || !count($contexts))
-	{
-		die(lang('bf_no_contexts'));
-	}
-	
-	// Ensure settings context exists
-	if (!in_array('settings', $contexts))
-	{
-		array_push($contexts, 'settings');
-	}
-	
-	// Ensure developer context exists
-	if (!in_array('developer', $contexts))
-	{
-		array_push($contexts, 'developer');
-	}
-
-	$nav = '';
-	
-	/*
-		Build out our navigation.
-	*/
-	foreach ($contexts as $context)
-	{	
-		if (has_permission('Site.'. ucfirst($context) .'.View'))
-		{	
-			$url = site_url(SITE_AREA .'/'.$context);
-			$class = check_class($context);
-			$id = 'tb_'. $context;
-			$title = lang('bf_context_'. $context);
-			
-			
-			
-			$nav .= "<a href='{$url}' {$class} id='{$id}' title='{$title}'>";
-			
-			// Image
-			if ($mode=='icon' || $mode=='both')
-			{
-				$nav .= "<img src='". Template::theme_url('images/context_'. $context .'.png') ."' alt='{$title}' />"; 
-			}
-			
-			// Display String
-			if ($mode=='text' || $mode=='both')
-			{
-				$nav .= $title;
-			}
-			
-			$nav .= "</a>";
-		}
-	}
-	
-	return $nav;
-}
-
-//--------------------------------------------------------------------
 
 /*
 	Function: dump()

@@ -90,6 +90,8 @@ class Base_Controller extends MX_Controller {
 			redirect('/install');
 		}
 		
+		$this->load->library('ui/contexts');
+		
 		// Pre-Controller Event
 		Events::trigger('after_controller_constructor', get_class($this));
 	}
@@ -210,7 +212,7 @@ class Admin_Controller extends Authenticated_Controller {
 		$this->limit = $this->config->item('site.list_limit');
 		
 		// Basic setup
-		Template::set_theme('admin');
+		Template::set_theme('new_admin');
 		Assets::add_css(array('ui.css', 'notifications.css', 'buttons.css'));
 	}
 	

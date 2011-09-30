@@ -936,17 +936,18 @@ function theme_view($view=null, $data=null)
 	
 	Parameter:
 		$item	- The name of the class to check against.
+		$class_only	- If TRUE, will only return 'active'. If false, will return 'class="active"'.
 		
 	Return:
 		Either <b>class="current"</b> or an empty string.
 */
-function check_class($item='')
+function check_class($item='', $class_only=false)
 {
 	$ci =& get_instance();
 
 	if (strtolower($ci->router->fetch_class()) == strtolower($item))
 	{
-		return 'class="current"';
+		return $class_only ? 'active' : 'class="active"';
 	}
 	
 	return '';
@@ -982,7 +983,7 @@ function check_method($item)
 
 	if (in_array($ci->router->fetch_method(), $items))
 	{
-		return 'class="current"';
+		return 'class="active"';
 	}
 
 	return '';
