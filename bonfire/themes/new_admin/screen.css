@@ -1,0 +1,96 @@
+/* !Base Styles */
+html, body {  height: 100%; position: relative;  }
+
+hr {
+	border: 0 #ccc solid;
+	border-top-width: 1px;
+	clear: both;
+	height: 0;
+}
+
+a:link, a:visited { color: #06c; text-decoration: none; }
+a:hover { text-decoration: underline; }
+
+/* Grids */
+.row:after,.last-column:after{clear:both;display:block;visibility:hidden;overflow:hidden;height:0 !important;line-height:0;font-size:xx-large;content:" x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x ";}
+.row{*zoom:1;}
+.column{float:left;}
+.size1of1{float:none;}
+.size1of2{width:50%;}
+.size1of3{width:33.33333%;}
+.size2of3{width:66.66666%;}
+.size1of4{width:25%;}
+.size3of4{width:75%;}
+.size1of5{width:20%;}
+.size2of5{width:40%;}
+.size3of5{width:60%;}
+.size4of5{width:80%;}
+.last-column{display:table-cell;float:none;width:auto;*display:block;*zoom:1;_position:relative;_left:-3px;_margin-right:-3px;}
+
+/* Selection styles */
+::selection 	 	{background: #dbe3f0;}
+::-moz-selection 	{background: #dbe3f0;}
+img::selection 		{background: transparent;}
+img::-moz-selection	{background: transparent;}
+
+/* Typography */
+.text-left { text-align: left; }
+.text-center { text-align: center; }
+.text-right { text-align: right; }
+.text-justify { text-align: justify; }
+.small { font-size: 90%; font-weight: lighter; line-height: 1.2em; color: #999; font-family: Helvetica, sans-serif; }
+.big-text { font-size: 2.4em; }
+
+/* !Boxes */
+.box {
+	border: 1px solid #ccd;
+	padding: 0.5em 1em;
+	margin: 18px;
+}
+.box.delete {
+	border-color: #DCB5B5;
+}
+.box.create {
+	border-color: #aca;
+}
+.box button,
+.box a.button {
+	float: right; 
+	margin-top: 0.6em;
+	padding: 1.3em 2em;
+}
+.box .cancel {
+	position: absolute;
+	top: 6em;
+	right: 4em;
+}
+
+/* !NOSCRIPT */
+noscript {
+	display: block;
+	background: #fffbcc;
+	color: #000;
+	line-height: 2.0em;
+	text-align: center;
+}
+
+/* !NAV BAR */
+#nav-bar {
+	position: absolute;
+	top: 65px;
+	left: 0;
+	right: 0;
+	border-bottom: 1px solid #ddd;
+	margin-bottom: 10px;
+	padding: 5px 0;
+	-webkit-box-shadow: 0px 1px 10px #ddd;
+	-moz-box-shadow: -12px 1px 10px #ddd;
+	box-shadow: 0px 1px 10px #ddd;
+	z-index: 2;
+}
+#nav-bar h1 {
+	color: #999;
+	font-weight: normal;
+	font-size: 20px;
+	line-height: 24px;
+}
