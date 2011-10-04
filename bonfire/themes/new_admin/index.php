@@ -17,6 +17,14 @@
     <title><?php echo isset($toolbar_title) ? $toolbar_title .' : ' : ''; ?> <?php echo config_item('site.title') ?></title>
     
     <?php echo Assets::css(); ?>
+    
+    <script src="<?php echo base_url() .'assets/js/head.min.js' ?>"></script>
+	<script>
+	head.feature("placeholder", function() {
+		var inputElem = document.createElement('input');
+		return new Boolean('placeholder' in inputElem);
+	});
+	</script>
 </head>
 <body>
 
@@ -32,9 +40,7 @@
 		<div class="topbar-inner">
 		<div class="container-fluid">
 			<a class="brand" href="<?php echo site_url(); ?>" target="_blank"><?php echo config_item('site.title') ?></a>
-			<ul class="nav">
-				<?php echo Contexts::render_menu('text'); ?>
-			</ul>
+			<?php echo Contexts::render_menu('text'); ?>
 			<ul class="nav secondary-nav">
 				<li class="dropdown">
 					<a href="<?php echo site_url(SITE_AREA .'/settings/users/edit/'. $this->auth->user_id()) ?>" id="tb_email" class="dropdown-toggle" title="<?php echo lang('bf_user_settings') ?>">
@@ -66,6 +72,10 @@
 	
 	<div id="debug"><!-- Stores the Profiler Results --></div>
 	
-	<?php echo Assets::js(); ?>
+	<script>
+		head.js(<?php echo Assets::external_js(null, true) ?>);
+		head.js(<?php echo Assets::module_js(true) ?>);
+	</script>
+	<?php echo Assets::inline_js(); ?>
 </body>
 </html>

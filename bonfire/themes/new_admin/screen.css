@@ -1,6 +1,6 @@
 /* !Base Styles */
 html, body {  height: 100%; position: relative;  }
-
+body { padding-top: 40px; }
 hr {
 	border: 0 #ccc solid;
 	border-top-width: 1px;
@@ -93,4 +93,23 @@ noscript {
 	font-weight: normal;
 	font-size: 20px;
 	line-height: 24px;
+}
+
+.dropdown-menu li {
+	position: relative;
+}
+.dropdown-menu li ul {
+	display: none;
+	background: #333;
+	min-width: 160px;
+	border-left: 1px solid #000;
+}
+.dropdown-menu li:hover ul {
+	display: block;
+	position: absolute;
+	left: 130px;
+	top: 0;
+}
+.dropdown-menu li ul a {
+	padding: 4px 15px;
 }

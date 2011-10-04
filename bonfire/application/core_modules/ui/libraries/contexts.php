@@ -18,6 +18,42 @@ class Contexts {
 		Stores the organized menu actions.
 	*/
 	protected static $menu	= array();
+	
+	/*
+		Var: $outer_class
+		The class name to attach to the outer ul tag.
+		
+		Default:
+			nav
+	*/
+	protected static $outer_class	= 'nav';
+	
+	/*
+		Var: $outer_id
+		The id to apply to the outer ul tag.
+		
+		Default: 
+			null
+	*/
+	protected static $outer_id	= null;
+	
+	/*
+		Var: $parent_class
+		The class to attach to li tags with children
+		
+		Default: 
+			dropdown
+	*/
+	protected static $parent_class	= 'dropdown';
+	
+	/*
+		Var: $child_class
+		The class to apply to ul tags within li tags.
+		
+		Default:
+			dropdown-menu
+	*/
+	protected static $child_class	= 'dropdown-menu';
 
 	/*
 		Var: $ci
@@ -78,13 +114,13 @@ class Contexts {
 			array_push($contexts, 'developer');
 		}
 	
-		$nav = '';
+		$nav = '<ul class="'. self::$outer_class .'" id="'. self::$outer_id .'">';
 
 		/*
 			Build out our navigation.
 		*/
 		foreach ($contexts as $context)
-		{	
+		{
 			if (has_permission('Site.'. ucfirst($context) .'.View'))
 			{	
 				$url = site_url(SITE_AREA .'/'.$context);
@@ -113,6 +149,8 @@ class Contexts {
 				$nav .= "</li>";
 			}
 		}
+		
+		$nav .= '</ul>';
 		
 		self::$ci->benchmark->mark('context_menu_end');
 		
@@ -193,6 +231,45 @@ class Contexts {
 	
 	//--------------------------------------------------------------------
 
+	//--------------------------------------------------------------------
+	// !UTILITY METHODS
+	//--------------------------------------------------------------------
+	
+	/*
+		Method: set_attrs()
+		
+		Takes an array of key/value pairs and sets the class/id names.
+		
+		Parameters:
+			$attrs	- an array of key/value pairs that correspond to the
+						class methods for classes and ids.
+						
+		Returns:
+			void
+	*/
+	public static function set_attrs($attrs=array()) 
+	{
+		if (!is_array($attrs))
+		{
+			return null;
+		}
+		
+		foreach ($attrs as $attr => $value)
+		{
+			if (isset(self::$attr))
+			{
+				self::$attr = $value;
+			}
+		}
+	}
+	
+	//--------------------------------------------------------------------
+	
+
+	//--------------------------------------------------------------------
+	// !PRIVATE METHODS
+	//--------------------------------------------------------------------
+
 	/*
 		Method: build_menu()
 		
@@ -201,7 +278,7 @@ class Contexts {
 		Parameters:
 			$context	- The context to build the menu for.	
 	*/
-	protected static function build_sub_menu($context) 
+	private static function build_sub_menu($context) 
 	{
 		// Build a ul to return
 		$list = "<ul class='dropdown-menu'>\n";
@@ -281,7 +358,7 @@ class Contexts {
 		Returns:
 			The HTML necessary for a single item and it's sub-menus.
 	*/
-	protected static function build_item($module, $title, $display_name, $context, $menu_view='') 
+	private static function build_item($module, $title, $display_name, $context, $menu_view='') 
 	{
 		// Is this the current module? 	
 		$class = $module == self::$ci->uri->segment(3) ? 'class="current"' : '';
