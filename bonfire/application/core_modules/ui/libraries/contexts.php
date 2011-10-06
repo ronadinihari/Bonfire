@@ -148,6 +148,7 @@ class Contexts {
 				
 				$nav .= "</li>";
 			}
+			
 		}
 		
 		$nav .= '</ul>';
@@ -171,14 +172,15 @@ class Contexts {
 			The HTML necessary to display the menu.
 	*/
 	public function context_nav($context=null) 
-	{	
+	{		
 		// Get a list of modules with a controller matching
-		// $context ('content', 'appearance', 'settings', 'statistics', or 'developer')
+		// $context ('content', 'settings', 'reports', or 'developer')
 		$module_list = module_list();
+		
 		foreach ($module_list as $module)
 		{
-			if (module_controller_exists($context, $module))
-			{
+			if (module_controller_exists($context, $module) === true)
+			{	
 				self::$actions[] = $module;
 			}
 		}
@@ -226,7 +228,11 @@ class Contexts {
 			}
 		}
 
-		return self::build_sub_menu($context);
+		$menu = self::build_sub_menu($context);
+		
+		self::$actions = array();
+		
+		return $menu;
 	}
 	
 	//--------------------------------------------------------------------
@@ -264,11 +270,6 @@ class Contexts {
 	}
 	
 	//--------------------------------------------------------------------
-	
-
-	//--------------------------------------------------------------------
-	// !PRIVATE METHODS
-	//--------------------------------------------------------------------
 
 	/*
 		Method: build_menu()
@@ -276,14 +277,12 @@ class Contexts {
 		Handles building out the HTML for the menu.
 		
 		Parameters:
-			$context	- The context to build the menu for.	
+			$actions	- an array of action name and action url.	
 	*/
-	private static function build_sub_menu($context) 
-	{
+	public static function build_sub_menu($context) 
+	{	
 		// Build a ul to return
-		$list = "<ul class='dropdown-menu'>\n";
-		
-		//echo '<pre>'; die(print_r($this->menu));
+		$list = "<ul class='". self::$child_class ."'>\n";
 		
 		foreach (self::$menu as $topic_name => $topic)
 		{		
@@ -294,14 +293,12 @@ class Contexts {
 			// out a menu based on the multiple items.
 			if (count($topic) > 1)
 			{
-				$class = '';
-			
-				$list .= '<li><span{class}>'. ucwords($topic_name) .'</span>';
+				$list .= '<li><a href="#" class="no-link parent-menu">'. ucwords($topic_name) .'</a>';
 				$list .= '<ul>';
 				
 				foreach ($topic as $module => $vals)
 				{ 	
-					$class = $module == self::$ci->uri->segment(3) ? ' class="current"' : '';
+					$class = $module == self::$ci->uri->segment(3) ? ' class="active"' : '';
 				
 					// If it has a sub-menu, echo out that menu only…
 					if (isset($vals['menu_view']) && !empty($vals['menu_view']))
@@ -313,8 +310,6 @@ class Contexts {
 						$view = str_ireplace('</ul>', '', $view);
 						
 						$list .= $view;
-						
-						$list = str_replace('{class}', $class, $list);
 					}
 					// Otherwise, it's a single item, so add it like normal
 					else
@@ -336,6 +331,8 @@ class Contexts {
 		}
 		
 		$list .= "</ul>\n";
+		
+		self::$menu = array();
 		
 		return $list;
 	}
@@ -359,11 +356,8 @@ class Contexts {
 			The HTML necessary for a single item and it's sub-menus.
 	*/
 	private static function build_item($module, $title, $display_name, $context, $menu_view='') 
-	{
-		// Is this the current module? 	
-		$class = $module == self::$ci->uri->segment(3) ? 'class="current"' : '';
-		
-		$item  = '<li><a href="'. site_url(SITE_AREA .'/'. $context .'/'. $module) .'" '. $class;
+	{	
+		$item  = '<li><a href="'. site_url(SITE_AREA .'/'. $context .'/'. $module) .'" class="{class}"';
 		$item .= ' title="'. $title .'">'. ucwords(str_replace('_', '', $display_name)) ."</a>\n";
 		
 		// Sub Menus?
@@ -374,6 +368,15 @@ class Contexts {
 			
 			$item .= $view;
 		}
+		
+		// Is this the current module? 	
+		$class = $module == self::$ci->uri->segment(3) ? 'active' : '';
+		if (!empty($menu_view))
+		{
+			$class .= ' parent-menu';
+		}
+		
+		$item = str_replace('{class}', $class, $item);
 		
 		$item .= "</li>\n";
 				

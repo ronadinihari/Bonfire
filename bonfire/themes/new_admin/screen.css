@@ -1,5 +1,5 @@
 /* !Base Styles */
-html, body {  height: 100%; position: relative;  }
+html, body {  min-height: 100%; position: relative;  }
 body { padding-top: 40px; }
 hr {
 	border: 0 #ccc solid;
@@ -95,6 +95,7 @@ noscript {
 	line-height: 24px;
 }
 
+/* Main Menu */
 .dropdown-menu li {
 	position: relative;
 }
@@ -103,6 +104,12 @@ noscript {
 	background: #333;
 	min-width: 160px;
 	border-left: 1px solid #000;
+	-webkit-border-radius: 0 6px 6px 0;
+	-moz-border-radius: 0 6px 6px 0;
+	border-radius: 0 6px 6px 0;
+	-webkit-box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+	-moz-box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+	box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
 }
 .dropdown-menu li:hover ul {
 	display: block;
@@ -112,4 +119,26 @@ noscript {
 }
 .dropdown-menu li ul a {
 	padding: 4px 15px;
+}
+.dropdown-menu .no-link {
+	cursor: default;
+}
+.parent-menu:after {
+  width: 0;
+  height: 0;
+  position: absolute;
+  right: 10px;
+  display: inline-block;
+  content: "&rarr;";
+  text-indent: -99999px;
+  vertical-align: top;
+  margin-top: 4px;
+  margin-left: 4px;
+  border-left: 4px solid #ffffff;
+  border-top: 4px solid transparent;
+  border-bottom: 4px solid transparent;
+  filter: alpha(opacity=50);
+  -khtml-opacity: 0.5;
+  -moz-opacity: 0.5;
+  opacity: 0.5;
 }
