@@ -142,3 +142,14 @@ noscript {
   -moz-opacity: 0.5;
   opacity: 0.5;
 }
+.dropdown:hover > ul {
+	display: block;
+}
+
+.brand {
+	width: 200px;
+	text-overflow: ellipsis;
+	-o-text-overflow: ellipsis;
+	white-space: nowrap;
+	overflow: hidden;
+}

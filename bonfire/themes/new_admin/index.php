@@ -3,8 +3,7 @@
 			'css/bootstrap.css'
 		));
 	Assets::add_js(array(
-			'jquery-1.5.min.js',
-			'bootstrap-dropdown.js'
+			'jquery-1.6.4.min.js',
 		), 
 		'external',
 		true

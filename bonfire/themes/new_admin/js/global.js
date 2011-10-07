@@ -1,6 +1,4 @@
-$(document).ready(function(){
+head.ready(function(){
 
-	// Dropdowns
-	$('#topbar').dropdown();
 
 });
