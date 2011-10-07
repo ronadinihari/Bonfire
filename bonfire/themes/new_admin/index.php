@@ -1,6 +1,6 @@
 <?php 
 	Assets::add_css(array(
-			'css/bootstrap.css'
+			'css/bootstrap.css', 
 		));
 	Assets::add_js(array(
 			'jquery-1.6.4.min.js',
@@ -15,7 +15,7 @@
 	<meta charset="utf-8">
     <title><?php echo isset($toolbar_title) ? $toolbar_title .' : ' : ''; ?> <?php echo config_item('site.title') ?></title>
     
-    <?php echo Assets::css(); ?>
+    <?php echo Assets::css(null, 'screen', true); ?>
     
     <script src="<?php echo base_url() .'assets/js/head.min.js' ?>"></script>
 	<script>
