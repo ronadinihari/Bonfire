@@ -23,7 +23,7 @@ $config['auth.use_extended_profile'] = 0;
 	THE SOFTWARE.
 */
  
-$config['site.title'] = "Bonfire Testsite";
+$config['site.title'] = "Bonfire Testsite and a really long title.";
 $config['site.system_email'] = "lonnieje@gmail.com";
 $config['site.status'] = 1;		// 0 = offline, 1 = online
 $config['site.list_limit'] = 25;
@@ -31,7 +31,7 @@ $config['site.list_limit'] = 25;
 //--------------------------------------------------------------------
 // !Console/Profiler
 //--------------------------------------------------------------------
-$config['site.show_profiler'] = 1;
+$config['site.show_profiler'] = 0;
  
 //--------------------------------------------------------------------
 // !For Update messages
@@ -212,7 +212,8 @@ $config['template.default_theme'] = 'default/';
 |
 */
 $config['template.message_template'] =<<<EOD
-	<div class="notification {type} fade-me">
+	<div class="notification {type}">
+		<a class="close" href="#">x</a>
 		<div>{message}</div>
 	</div>
 EOD;

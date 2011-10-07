@@ -68,7 +68,7 @@
 	<div class="container-fluid">
 		<?php echo Template::yield(); ?>
 	</div>
-	
+
 	<div id="debug"><!-- Stores the Profiler Results --></div>
 	
 	<script>

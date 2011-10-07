@@ -1,6 +1,6 @@
 /* !Base Styles */
-html, body {  min-height: 100%; position: relative;  }
-body { padding-top: 90px; }
+html, body {  min-height: 100%; width: 100%; padding: 0; margin: 0; position: relative;  }
+body { padding-top: 90px; padding-bottom: 60px; }
 hr {
 	border: 0 #ccc solid;
 	border-top-width: 1px;
@@ -155,3 +155,9 @@ noscript {
 	white-space: nowrap;
 	overflow: hidden;
 }
+
+/* !FORMS */
+label { width: 200px; }
+form .input { margin-left: 230px; }
+fieldset legend,
+.actions { padding-left: 230px; }
