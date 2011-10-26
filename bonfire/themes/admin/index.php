@@ -1,7 +1,7 @@
 <?php
 	// Setup our default assets to load.
 	Assets::add_js( array(
-		Template::theme_url('js/jquery-1.5.min.js'),
+		Template::theme_url('js/jquery-1.6.4.min.js'),
 		Template::theme_url('js/jquery.form.js'),
 		Template::theme_url('js/ui.js')
 	),
@@ -14,6 +14,8 @@
 	<meta charset="UTF-8">
 	
 	<title><?php echo isset($toolbar_title) ? $toolbar_title .' : ' : ''; ?> <?php echo config_item('site.title') ?></title>
+	
+	<link rel="shortcut icon" type="image/x-icon" href="/favicon.ico">
 	
 	<?php echo Assets::css(null, 'screen', true); ?>
 	

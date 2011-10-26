@@ -26,7 +26,7 @@ HideAllBut([7, 6], 19);// --></script></div><!--Menu-->
           models/
           views/</pre></blockquote></div></div></div>
 
-<div class="CGeneric"><div class=CTopic><h3 class=CTitle><a name="The_Data"></a>The Data</h3><div class=CBody><p>We will create a migration that will let us easily import our data.</p><p>Create a new file under <u>bonfire/application/db/migrations/</u> called <b>003_Create_todo_table.php</b>.&nbsp; This will hold the <a href="../files/core_modules/migrations/libraries/Migrations-php.html#Migrations" class=LClass id=link1 onMouseOver="ShowTip(event, 'tt1', 'link1')" onMouseOut="HideTip('tt1')">Migrations</a> needed to create our new table to hold the todo items.</p><h4 class=CHeading>Create your migration.&nbsp; The file should look like</h4><blockquote><pre>&lt;?php if (!defined('BASEPATH')) exit('No direct script access allowed');
+<div class="CGeneric"><div class=CTopic><h3 class=CTitle><a name="The_Data"></a>The Data</h3><div class=CBody><p>We will create a migration that will let us easily import our data.</p><p>Create a new file under <u>bonfire/application/db/migrations/</u> called <b>001_Create_todo_table.php</b>.&nbsp; This will hold the <a href="../files/core_modules/migrations/libraries/Migrations-php.html#Migrations" class=LClass id=link1 onMouseOver="ShowTip(event, 'tt1', 'link1')" onMouseOut="HideTip('tt1')">Migrations</a> needed to create our new table to hold the todo items.</p><h4 class=CHeading>Create your migration.&nbsp; The file should look like</h4><blockquote><pre>&lt;?php if (!defined('BASEPATH')) exit('No direct script access allowed');
 
 class Migration_Create_todo_table extends Migration {
 

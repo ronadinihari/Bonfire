@@ -32,7 +32,6 @@ class Developer extends Admin_Controller {
 		
 		$this->options = $this->config->item('modulebuilder');
 		
-		Assets::add_js($this->load->view('developer/modulebuilder_js', null, true), 'inline');
 	}
 
 	//---------------------------------------------------------------
@@ -46,6 +45,8 @@ class Developer extends Admin_Controller {
 	public function index()
 	{
 		
+		Assets::add_js($this->load->view('developer/modulebuilder_js', null, true), 'inline');
+
 		$modules = module_list(true);
 		$configs = array();
 	
@@ -58,6 +59,9 @@ class Developer extends Admin_Controller {
 				$configs[$module]['name'] = ucwords($module);
 			}
 		}
+		
+		// check that the modules folder is writeable
+		Template::set('writeable', $this->_check_writeable());
 		
 		ksort($configs);
 		Template::set('modules', $configs);
@@ -75,6 +79,8 @@ class Developer extends Admin_Controller {
 	*/
 	public function create()
 	{
+		Assets::add_js($this->load->view('developer/modulebuilder_js', null, true), 'inline');
+		
 		$this->auth->restrict('Bonfire.Modules.Add');
 		
 		$hide_form = false;
@@ -121,6 +127,9 @@ class Developer extends Admin_Controller {
 			Template::set_view('developer/output');
 		}
 				
+		// check that the modules folder is writeable
+		Template::set('writeable', $this->_check_writeable());
+
 		Template::set('error', array());
 
 		Template::set('toolbar_title', 'Module Builder');
@@ -387,4 +396,16 @@ class Developer extends Admin_Controller {
 	}
 
 	//--------------------------------------------------------------------
+	
+	
+	/** Check that the Modules folder is writeable
+	 *
+	 * @access	private
+	 * @return	bool
+	 */
+	function _check_writeable()
+	{
+		return is_writeable($this->options['output_path']);
+		
+	}//end _check_writeable()
 }

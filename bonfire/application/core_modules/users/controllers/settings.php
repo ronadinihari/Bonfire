@@ -34,8 +34,6 @@ class Settings extends Admin_Controller {
 		
 		$this->load->model('roles/role_model');
 		
-		Assets::add_js($this->load->view('settings/users_js', null, true), 'inline');
-		
 		$this->lang->load('users');
 	}
 	
@@ -55,6 +53,8 @@ class Settings extends Admin_Controller {
 	{
 		$offset = $this->uri->segment(4);
 	
+		Assets::add_js($this->load->view('settings/users_js', null, true), 'inline');
+		
 		$total_users = $this->user_model->count_all();
 	
 		$this->pager['base_url'] = site_url(SITE_AREA .'/settings/users/index');
@@ -110,7 +110,7 @@ class Settings extends Admin_Controller {
 			if ($id = $this->save_user())
 			{
 				$user = $this->user_model->find($id);
-				$log_name == config_item('auth.use_own_names') ? $this->auth->user_name() : (config_item('auth.use_usernames') ? $user->username : $user->email);
+				$log_name = config_item('auth.use_own_names') ? $this->auth->user_name() : (config_item('auth.use_usernames') ? $user->username : $user->email);
 				$this->activity_model->log_activity($this->auth->user_id(), lang('us_log_create').' '. $user->role_name . ': '.$log_name, 'users');
 				
 				Template::set_message('User successfully created.', 'success');
@@ -195,7 +195,7 @@ class Settings extends Admin_Controller {
 				if ($this->user_model->delete($id))
 				{
 					$user = $this->user_model->find($id);
-					$log_name == config_item('auth.use_own_names') ? $this->auth->user_name() : (config_item('auth.use_usernames') ? $user->username : $user->email);
+					$log_name = config_item('auth.use_own_names') ? $this->auth->user_name() : (config_item('auth.use_usernames') ? $user->username : $user->email);
 					$this->activity_model->log_activity($this->auth->user_id(), lang('us_log_delete') . ': '.$log_name, 'users');
 					Template::set_message('The User was successfully deleted.', 'success');
 				}

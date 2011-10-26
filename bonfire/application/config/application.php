@@ -32,6 +32,7 @@ $config['site.list_limit'] = 25;
 // !Console/Profiler
 //--------------------------------------------------------------------
 $config['site.show_profiler'] = 1;
+$config['site.show_front_profiler'] = 1;
  
 //--------------------------------------------------------------------
 // !For Update messages
@@ -106,7 +107,7 @@ $config['module_permissions'] = array(
 	'content'		=> array(
 		'views'		=> 'Site.Content.View'
 	),
-	'stats'			=> array(
+	'reports'		=> array(
 		'emailer'	=> 'Bonfire.Emailer.View'
 	),
 	'appearance'	=> array(
