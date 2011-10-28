@@ -139,7 +139,7 @@ class Contexts {
 				// Display String
 				if ($mode=='text' || $mode=='both')
 				{
-					$nav .= $title;
+					$nav .= "<span>$title</span>";
 				}
 				
 				$nav .= "</a>";

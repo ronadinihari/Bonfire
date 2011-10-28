@@ -51,6 +51,7 @@ class Settings extends Admin_Controller {
 	
 	public function index() 
 	{
+		/*
 		$offset = $this->uri->segment(4);
 	
 		Assets::add_js($this->load->view('settings/users_js', null, true), 'inline');
@@ -91,7 +92,36 @@ class Settings extends Admin_Controller {
 		Template::set('login_attempts', $this->user_model->get_login_attempts($this->limit) );
 	
 		$this->load->helper('ui/ui');
-	
+		*/
+		
+		$this->load->library('ui/dataset');
+		$this->dataset->set_source('user_model', 'find_all');
+		
+		$columns = array(
+			array(
+				'field'		=> 'id',
+				'title'		=> 'ID',
+				'width'		=> '10%'
+			),
+			array(
+				'field'		=> 'username',
+			),
+			array(
+				'field'		=> array('first_name', 'last_name'),
+				'title'		=> 'Name'
+			),
+			array(
+				'field'		=> 'email',
+			),
+			array(
+				'field'		=> 'last_login',
+				'width'		=> '15%'
+			)
+		);
+		
+		$this->dataset->columns($columns);
+		$this->dataset->initialize();
+		
 		Template::set('toolbar_title', lang('us_user_management'));
 		Template::render();
 	}

@@ -17,11 +17,8 @@
 		<div class="clearfix">
 			<label for="system_email"><?php echo lang('bf_site_email') ?></label>
 			<div class="input">
-				<div class="input-prepend">
-					<span class="add-on">@</span>
-					<input type="text" name="system_email" class="span4" value="<?php echo isset($settings['site.system_email']) ? $settings['site.system_email'] : set_value('site.system_email') ?>" />
-					<p class="help-inline"><?php echo lang('bf_site_email_help') ?></p>
-				</div>
+				<input type="text" name="system_email" class="span4" value="<?php echo isset($settings['site.system_email']) ? $settings['site.system_email'] : set_value('site.system_email') ?>" />
+				<p class="help-inline"><?php echo lang('bf_site_email_help') ?></p>
 			</div>
 		</div>
 		

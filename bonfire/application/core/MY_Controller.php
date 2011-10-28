@@ -72,7 +72,7 @@ class Base_Controller extends MX_Controller {
 			
 			if (!$this->input->is_cli_request() && config_item('site.show_profiler'))
 			{
-				$this->output->enable_profiler(true);
+				$this->output->enable_profiler(false);
 			}
 		}
 		

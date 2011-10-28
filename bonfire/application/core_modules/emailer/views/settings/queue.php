@@ -1,22 +1,27 @@
 <br/>
 <div class="row">
-	<div class="column size1of2">
+	<div class="span5">
 		<p><b><?php echo lang('em_total_in_queue'); ?></b> <?php echo $total_in_queue ? $total_in_queue : '0' ?></p>
 	</div>
 	
-	<div class="column size1of2">
+	<div class="span5">
 		<p><b><?php echo lang('em_total_sent'); ?></b> <?php echo $total_sent ? $total_sent : '0' ?></p>
+	</div>
+	<div class="span6 text-right">
+		<a href="<?php echo site_url(SITE_AREA . '/settings/emailer/force_process'); ?>" class="btn">Process Now</a> 
+		<a href="<?php echo site_url(SITE_AREA . '/settings/emailer/insert_test'); ?>" class="btn">Insert Test Email</a>
 	</div>
 </div>
 
 <div class="padded text-right">
-	<a href="<?php echo site_url(SITE_AREA . '/settings/emailer/force_process'); ?>" class="button">Process Now</a> 
-	<a href="<?php echo site_url(SITE_AREA . '/settings/emailer/insert_test'); ?>" class="button">Insert Test Email</a>
+	
 </div>
+
+<br/>
 
 <?php if (isset($emails) && is_array($emails) && count($emails)) : ?>
 
-	<table>
+	<table class="zebra-striped">
 		<thead>
 			<tr>
 				<th style="width: 2em"><?php echo lang('em_id'); ?></th>

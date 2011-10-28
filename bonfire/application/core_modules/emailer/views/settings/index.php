@@ -6,65 +6,96 @@
 
 <?php echo form_open(SITE_AREA .'/settings/emailer', 'class="constrained"'); ?>
 	
-	<br/>
-	
-	<div>
+<fieldset>
+	<legend>General Settings</legend>
+
+	<div class="clearfix">
 		<label for="sender_email"><?php echo lang('em_system_email'); ?></label>
-		<input type="email" name="sender_email" class="medium" value="<?php echo isset($sender_email) ? $sender_email : set_value('sender_email') ?>" />
-		<p class="small indent"><?php echo lang('em_system_email_note'); ?></p>
+		<div class="input">
+			<input type="email" name="sender_email" class="medium" value="<?php echo isset($sender_email) ? $sender_email : set_value('sender_email') ?>" />
+			<span class="help-inline"><?php echo lang('em_system_email_note'); ?></span>
+		</div>
 	</div>
 	
-	<div>
+	<div class="clearfix">
 		<label for="mailtype"><?php echo lang('em_email_type'); ?></label>
-		<select name="mailtype">
-			<option value="text" <?php echo isset($mailtype) && $mailtype == 'text' ? 'selected="selected"' : ''; ?>>Text</option>
-			<option value="html" <?php echo isset($mailtype) && $mailtype == 'html' ? 'selected="selected"' : ''; ?>>HTML</option>
-		</select>
+		<div class="input">
+			<select name="mailtype">
+				<option value="text" <?php echo isset($mailtype) && $mailtype == 'text' ? 'selected="selected"' : ''; ?>>Text</option>
+				<option value="html" <?php echo isset($mailtype) && $mailtype == 'html' ? 'selected="selected"' : ''; ?>>HTML</option>
+			</select>
+		</div>
 	</div>
 	
-	<div>
+	<div class="clearfix">
 		<label for="protocol"><?php echo lang('em_email_server'); ?></label>
-		<select name="protocol" id="server_type">
-			<option <?php echo isset($protocol) && $protocol == 'mail' ? 'selected="selected"' : ''; ?>>mail</option>
-			<option <?php echo isset($protocol) && $protocol == 'sendmail' ? 'selected="selected"' : ''; ?>>sendmail</option>
-			<option <?php echo isset($protocol) && $protocol == 'smtp' ? 'selected="selected"' : ''; ?>>SMTP</option>
-		</select>
+		<div class="input">
+			<select name="protocol" id="server_type">
+				<option <?php echo isset($protocol) && $protocol == 'mail' ? 'selected="selected"' : ''; ?>>mail</option>
+				<option <?php echo isset($protocol) && $protocol == 'sendmail' ? 'selected="selected"' : ''; ?>>sendmail</option>
+				<option <?php echo isset($protocol) && $protocol == 'smtp' ? 'selected="selected"' : ''; ?>>SMTP</option>
+			</select>
+		</div>
 	</div>
+</fieldset>
 	
 <fieldset>
 	<legend><?php echo lang('em_settings'); ?></legend>
 	<!-- PHP Mail -->
-	<div id="mail">
-		<p class="text-center"><?php echo lang('em_settings_note'); ?></p>
+	<div id="mail" class="clearfix input">
+		<p><?php echo lang('em_settings_note'); ?></p>
 	</div>
 
 	<!-- Sendmail -->
-	<div id="sendmail">
+	<div id="sendmail" class="clearfix">
 		<label for="mailpath">Sendmail <?php echo lang('em_location'); ?></label>
-		<input type="text" name="mailpath" class="medium" value="<?php echo isset($mailpath) ? $mailpath : '/usr/sbin/sendmail' ?>" />
+		<div class="input">
+			<input type="text" name="mailpath" class="medium" value="<?php echo isset($mailpath) ? $mailpath : '/usr/sbin/sendmail' ?>" />
+		</div>
 	</div>
 	
 	<!-- SMTP -->
 	<div id="smtp">
-		<label for="smtp_host">SMTP <?php echo lang('em_server_address'); ?></label>
-		<input type="text" name="smtp_host" class="medium" value="<?php echo isset($smtp_host) ? $smtp_host : set_value('smtp_host') ?>" />
-		<br/>
-		<label for="smtp_user">SMTP <?php echo lang('bf_username'); ?></label>
-		<input type="text" name="smtp_user" class="medium" value="<?php echo isset($smtp_user) ? $smtp_user : set_value('smtp_user') ?>" />
-		<br/>
-		<label for="smtp_pass">SMTP <?php echo lang('bf_password'); ?></label>
-		<input type="text" name="smtp_pass" class="medium" value="<?php echo isset($smtp_pass) ? $smtp_pass : set_value('smtp_pass') ?>" />
-		<br/>
-		<label for="smtp_port">SMTP <?php echo lang('em_port'); ?></label>
-		<input type="text" name="smtp_port" class="medium" value="<?php echo isset($smtp_port) ? $smtp_port : set_value('smtp_port') ?>" />
-		<br/>
-		<label for="smptp_timeout">SMTP <?php echo lang('em_timeout_secs'); ?></label>
-		<input type="text" name="smtp_timeout" class="medium" value="<?php echo isset($smtp_timeout) ? $smtp_timeout : set_value('smtp_timeout') ?>" />
+	
+		<div class="clearfix">
+			<label for="smtp_host">SMTP <?php echo lang('em_server_address'); ?></label>
+			<div class="input">
+				<input type="text" name="smtp_host" class="medium" value="<?php echo isset($smtp_host) ? $smtp_host : set_value('smtp_host') ?>" />
+			</div>
+		</div>
+
+		<div class="clearfix">
+			<label for="smtp_user">SMTP <?php echo lang('bf_username'); ?></label>
+			<div class="input">
+				<input type="text" name="smtp_user" class="medium" value="<?php echo isset($smtp_user) ? $smtp_user : set_value('smtp_user') ?>" />
+			</div>
+		</div>
+		
+		<div class="clearfix">
+			<label for="smtp_pass">SMTP <?php echo lang('bf_password'); ?></label>
+			<div class="input">
+				<input type="text" name="smtp_pass" class="medium" value="<?php echo isset($smtp_pass) ? $smtp_pass : set_value('smtp_pass') ?>" />
+			</div>
+		</div>
+		
+		<div class="clearfix">
+			<label for="smtp_port">SMTP <?php echo lang('em_port'); ?></label>
+			<div class="input">
+				<input type="text" name="smtp_port" class="medium" value="<?php echo isset($smtp_port) ? $smtp_port : set_value('smtp_port') ?>" />
+			</div>
+		</div>
+		
+		<div class="clearfix">
+			<label for="smptp_timeout">SMTP <?php echo lang('em_timeout_secs'); ?></label>
+			<div class="input">
+				<input type="text" name="smtp_timeout" class="medium" value="<?php echo isset($smtp_timeout) ? $smtp_timeout : set_value('smtp_timeout') ?>" />
+			</div>
+		</div>
 	</div>
 </fieldset>
 
-<div class="submits">
-	<input type="submit" name="submit" value="Save Settings" />
+<div class="actions">
+	<input type="submit" name="submit" class="btn primary" value="Save Settings" />
 </div>
 
 <?php echo form_close(); ?>
@@ -76,10 +107,13 @@
 
 <?php echo form_open(SITE_AREA .'/settings/emailer/test', array('class' => 'ajax-form', 'id'=>'test-form')); ?>
 	
-	<div>
+	<br/>
+	<div class="clearfix">
 		<label for="email"><?php echo lang('bf_email'); ?></label>
-		<input type="email" name="test_email" id="test-email" value="<?php echo config_item('site.system_email') ?>" /> 
-		<input type="submit" name="submit" value="<?php echo lang('em_test_button'); ?>" />
+		<div class="input">
+			<input type="email" name="test_email" id="test-email" value="<?php echo config_item('site.system_email') ?>" /> 
+			<input type="submit" name="submit" class="btn" value="<?php echo lang('em_test_button'); ?>" />
+		</div>
 	</div>
 	
 	<div id="test-ajax"></div>
