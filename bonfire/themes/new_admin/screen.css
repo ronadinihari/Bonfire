@@ -1,3 +1,12 @@
+/*
+	This stylesheet is based in large part on Twitter's Bootstrap.css file
+	which was released under the Apache License, Version 2.0. 
+	
+	Changes were made to the Bootstrap file by Lonnie Ezell and the Bonfire team.
+	
+	Normalize.css was used untouched and released to the public domain.
+*/
+
 /*--------------------------------------------------------------------
 	Normalize.css
  -------------------------------------------------------------------*/
@@ -42,6 +51,8 @@ input[type="search"]::-webkit-search-decoration { -webkit-appearance: none; }
 button::-moz-focus-inner, input::-moz-focus-inner { border: 0; padding: 0; }
 textarea { overflow: auto; vertical-align: top; }
 table { border-collapse: collapse; border-spacing: 0; }
+
+/* End Normalize.css */
 
 /*--------------------------------------------------------------------
 	!Scaffolding
