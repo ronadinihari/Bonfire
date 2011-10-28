@@ -1,7 +1,3 @@
-$.subscribe('list-view/list-item/click', function(which) {
-	$('#content').load('<?php echo site_url(SITE_AREA .'/reports/activities/') ?>/'+ which);
-});
-
 function verify_delete(whom, action) {
 	var date_for = 'for';
 	if (action.indexOf('date') != -1) date_for = 'before';
@@ -16,7 +12,7 @@ function verify_delete(whom, action) {
     return false;
 }
 
-$('.button').click( function() {
+$('.btn').click( function() {
 	var which = $(this).attr('id').replace('delete-', '');
 	var whom = $('#'+which+'_select option:selected').text();
 	var action = which + '/' + $('#'+which+'_select option:selected').val();

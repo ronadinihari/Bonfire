@@ -84,12 +84,14 @@ class Reports extends Admin_Controller {
 	*/
 	public function activity_user() 
 	{
-		if (has_permission('Activities.Own.View') || has_permission('Activities.User.View')) {
-			return $this->_get_activity();
+		if (!has_permission('Activities.Own.View') || !has_permission('Activities.User.View')) {
+			Template::set_message(lang('activity_restricted'), 'error');
+			Template::redirect(SITE_AREA .'/reports/activities');
 		}
 		
-		Template::set_message(lang('activity_restricted'), 'error');
-		Template::redirect(SITE_AREA .'/reports/activities');
+		Template::set($this->_get_activity());
+		Template::set_view('view');
+		Template::render();
 	}
 	
 	//--------------------------------------------------------------------
@@ -226,9 +228,6 @@ class Reports extends Admin_Controller {
 	*/
 	public function _get_activity($which='activity_user',$find_value=FALSE)
 	{	
-		
-		Assets::add_js($this->load->view('reports/datatable_js', null, true), 'inline');
-		
 		// set a couple default variables
 		$options = array(0 => 'All');
 		$name = 'All';
