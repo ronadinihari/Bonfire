@@ -50,11 +50,11 @@ class MY_Form_validation extends CI_Form_validation {
 		list($table, $fieldname, $where_field, $where_value) = explode(".", $fields[0], 4);
 		log_message('debug', 'table : ['.$table.' fieldname : ['.$fieldname.'] where_field : ['.$where_field.'] where_value : ['.$where_value.']');
 		#
-				
+		
 		// setup the db request
-		$this->CI->db->select($field)->from($table)
-			->where($field, $value)->limit(1);
-
+		$this->CI->db->select($fieldname)->from($table)
+			->where($where_field, $where_value)->limit(1);
+		
 		// check if there is a second field passed in
 		if (isset($fields[1]))
 		{

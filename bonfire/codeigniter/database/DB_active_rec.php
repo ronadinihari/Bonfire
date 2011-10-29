@@ -78,7 +78,7 @@ class CI_DB_active_record extends CI_DB_driver {
 		{
 			$this->_protect_identifiers = $escape;
 		}
-
+	
 		if (is_string($select))
 		{
 			$select = explode(',', $select);
