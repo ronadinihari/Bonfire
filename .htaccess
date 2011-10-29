@@ -3,8 +3,7 @@
 	Options +FollowSymLinks -Indexes
 	RewriteEngine on
 	
-	# rona.dinihari@gmail.com
-	RewriteBase /~rona_dinihari/bonfire
+	RewriteBase /~rona_dinihari/ci
 	
 	#Removes access to the system folder by users.
     #Additionally this will allow you to create a System.php controller,
