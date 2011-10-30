@@ -35,25 +35,20 @@ class MY_Form_validation extends CI_Form_validation {
 	 * @return bool
 	 */
 	function unique($value, $params) {
-		# rona.dinihari@gmail.com
-		log_message('debug', 'value : ['.$value.'] params : ['.$params.']');
-		#
 		$this->CI->form_validation->set_message('unique', 'The value in &quot;%s&quot; is already being used.');
 		
 		// allow for more than 1 parameter
 		$fields = explode(",", $params);
 		
 		# rona.dinihari@gmail.com
-		log_message('debug', 'fields[0] : ['.$fields[0].']');
 		// extract the first parameter
 		#list($table, $fields1) = explode(".", $fields[0], 2);		
 		list($table, $fieldname, $where_field, $where_value) = explode(".", $fields[0], 4);
-		log_message('debug', 'table : ['.$table.' fieldname : ['.$fieldname.'] where_field : ['.$where_field.'] where_value : ['.$where_value.']');
-		#
 		
 		// setup the db request
 		$this->CI->db->select($fieldname)->from($table)
 			->where($where_field, $where_value)->limit(1);
+		#
 		
 		// check if there is a second field passed in
 		if (isset($fields[1]))
