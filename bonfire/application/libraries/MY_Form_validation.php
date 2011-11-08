@@ -40,16 +40,13 @@ class MY_Form_validation extends CI_Form_validation {
 		// allow for more than 1 parameter
 		$fields = explode(",", $params);
 		
-		# rona.dinihari@gmail.com
 		// extract the first parameter
-		#list($table, $fields1) = explode(".", $fields[0], 2);		
-		list($table, $fieldname, $where_field, $where_value) = explode(".", $fields[0], 4);
+		list($table, $field) = explode(".", $fields[0], 2);
 		
 		// setup the db request
-		$this->CI->db->select($fieldname)->from($table)
-			->where($where_field, $where_value)->limit(1);
-		#
-		
+		$this->CI->db->select($field)->from($table)
+			->where($field, $value)->limit(1);
+
 		// check if there is a second field passed in
 		if (isset($fields[1]))
 		{
@@ -92,6 +89,25 @@ class MY_Form_validation extends CI_Form_validation {
 	{
 		$this->CI->form_validation->set_message('alpha_extra', 'The %s field may only contain alpha-numeric characters, spaces, periods, underscores, and dashes.');
 		return ( ! preg_match("/^([\.\s-a-z0-9_-])+$/i", $str)) ? FALSE : TRUE;
+	}
+
+	// --------------------------------------------------------------------
+	
+	/*
+		Method: matches_pattern()
+		
+		Ensures a string matches a basic pattern
+		
+		Return: 
+			bool
+	*/
+	function matches_pattern($str, $pattern)
+	{
+		if (preg_match('/^' . $pattern . '$/', $str)) return TRUE;
+	
+		$this->CI->form_validation->set_message('matches_pattern', 'The %s field does not match the required pattern.');
+		return FALSE;
+		
 	}
 
 	// --------------------------------------------------------------------

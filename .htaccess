@@ -3,8 +3,11 @@
 	Options +FollowSymLinks -Indexes
 	RewriteEngine on
 	
-	# rona.dinihari@gmail.com
-	RewriteBase /~rona_dinihari/bonfire
+	# If you installed Bonfire in a subfolder, you will need to 
+	# change the following line to match the subfolder you need. 
+	# http://httpd.apache.org/docs/current/mod/mod_rewrite.html#rewritebase
+	#RewriteBase /
+	RewriteBase /~rona_dinihari/bonfire/
 	
 	#Removes access to the system folder by users.
     #Additionally this will allow you to create a System.php controller,
