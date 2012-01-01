@@ -29,9 +29,8 @@ $id = isset($media['id']) ? "/".$media['id'] : '';
 
 <div>
         <?php echo form_label('Description', 'media_deskripsi'); ?>
-        <input id="media_deskripsi" type="text" name="media_deskripsi" maxlength="500" value="<?php echo set_value('media_deskripsi', isset($media['media_deskripsi']) ? $media['media_deskripsi'] : ''); ?>"  />
+	<?php echo form_textarea( array( 'name' => 'media_deskripsi', 'id' => 'media_deskripsi', 'rows' => '5', 'cols' => '80', 'value' => set_value('media_deskripsi', isset($media['media_deskripsi']) ? $media['media_deskripsi'] : '') ) )?>
 </div>
-
 <div>
         <?php echo form_label('MIME', 'media_mime'); ?> <span class="required">*</span>
         <input id="media_mime" type="text" name="media_mime" maxlength="20" value="<?php echo set_value('media_mime', isset($media['media_mime']) ? $media['media_mime'] : ''); ?>"  />
