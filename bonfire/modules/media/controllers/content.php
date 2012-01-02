@@ -91,7 +91,7 @@ class content extends Admin_Controller {
 			redirect(SITE_AREA .'/content/media');
 		}
 
-		if ($this->input->post('submit'))
+		if ($this->input->post('submitedit'))
 		{
 			if ($this->save_media('update', $id))
 			{
@@ -151,7 +151,7 @@ class content extends Admin_Controller {
 	public function image($id)
 	{
 		$this->auth->restrict('Media.Content.View');
-		
+
 		header('Content-Type: ' . $this->getmime($id));
 		echo $this->media_model->get_field($id, 'media_media');
 	}
@@ -162,7 +162,7 @@ class content extends Admin_Controller {
 	public function thumbnail($id)
 	{
 		$this->auth->restrict('Media.Content.View');
-		
+
 		header('Content-Type: ' . $this->getmime($id));
 		echo $this->media_model->get_field($id, 'media_thumbnail');
 	}
@@ -214,7 +214,7 @@ class content extends Admin_Controller {
 		$r = $height / $width;
 		$newwidth = 100;
 		$newheight = $newwidth * $r;
-		
+
 		$config['image_library'] = 'gd2';
 		$config['source_image'] = $source_image;
 		$config['create_thumb'] = TRUE;
@@ -277,20 +277,28 @@ class content extends Admin_Controller {
 
 		// make sure we only pass in the fields we want
 
-		$data = array();
+		if ($type == 'insert')
+		{
+			$data = array();
+
+			// User ID
+			$data['media_bf_users_id'] = $this->auth->user_id();
+
+			// Date Time
+			$this->load->helper('date');
+			$data['media_tanggalupload'] = date('Y-m-d H:i:s');
+		}
+		elseif ($type == 'update')
+		{
+			$data = $this->media_model->find($this->input->post('id'));
+		}
+
 		// 		$data['media_bf_users_id']        = $this->input->post('media_bf_users_id');
 		// 		$data['media_tanggalupload']        = $this->input->post('media_tanggalupload');
 		$data['media_judul']        = $this->input->post('media_judul');
 		$data['media_deskripsi']        = $this->input->post('media_deskripsi');
 		// 		$data['media_mime']        = $this->input->post('media_mime');
 		// 		$data['media_media']        = $this->input->post('media_media');
-
-		// User ID
-		$data['media_bf_users_id'] = $this->auth->user_id();
-
-		// Date Time
-		$this->load->helper('date');
-		$data['media_tanggalupload'] = date('Y-m-d H:i:s');
 
 		// Media
 		$uploaddata = $this->uploadfile();
@@ -312,7 +320,7 @@ class content extends Admin_Controller {
 				unlink($thumbfile);
 			}
 		}
-		else
+		elseif ( $type == 'insert' )
 		{
 			return FALSE;
 		}
