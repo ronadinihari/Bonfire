@@ -168,7 +168,8 @@ class reports extends Admin_Controller {
 		$this->form_validation->set_rules('media_judul','Title','required|max_length[50]');			
 		$this->form_validation->set_rules('media_deskripsi','Description','max_length[500]');			
 		$this->form_validation->set_rules('media_mime','MIME','required|max_length[20]');			
-		$this->form_validation->set_rules('media_media','Media','required');
+		$this->form_validation->set_rules('media_media','Media','required');			
+		$this->form_validation->set_rules('media_thumbnail','Thumbnail','required');
 
 		if ($this->form_validation->run() === FALSE)
 		{
@@ -184,6 +185,7 @@ class reports extends Admin_Controller {
 		$data['media_deskripsi']        = $this->input->post('media_deskripsi');
 		$data['media_mime']        = $this->input->post('media_mime');
 		$data['media_media']        = $this->input->post('media_media');
+		$data['media_thumbnail']        = $this->input->post('media_thumbnail');
 		
 		if ($type == 'insert')
 		{

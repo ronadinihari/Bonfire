@@ -25,6 +25,7 @@
 		<th>Description</th>
 		<th>MIME</th>
 		<th>Media</th>
+		<th>Thumbnail</th>
 		
 			<th><?php echo lang('media_actions'); ?></th>
 		</thead>

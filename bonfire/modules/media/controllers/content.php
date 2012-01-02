@@ -12,6 +12,8 @@ class content extends Admin_Controller {
 		$this->load->model('media_model', null, true);
 		$this->lang->load('media');
 
+		$this->load->helper('html');
+		$this->load->helper('date');
 
 		Assets::add_css('flick/jquery-ui-1.8.13.custom.css');
 		Assets::add_js('jquery-ui-1.8.8.min.js');
@@ -144,11 +146,25 @@ class content extends Admin_Controller {
 	//--------------------------------------------------------------------
 
 	/*
-	 Method: getimage()
+	 Method: image()
 	*/
 	public function image($id)
 	{
-		return $this->media_model->get_field($id, 'media_media');
+		$this->auth->restrict('Media.Content.View');
+		
+		header('Content-Type: ' . $this->getmime($id));
+		echo $this->media_model->get_field($id, 'media_media');
+	}
+
+	/*
+	 Method: getimage()
+	*/
+	public function thumbnail($id)
+	{
+		$this->auth->restrict('Media.Content.View');
+		
+		header('Content-Type: ' . $this->getmime($id));
+		echo $this->media_model->get_field($id, 'media_thumbnail');
 	}
 
 	//--------------------------------------------------------------------
@@ -179,7 +195,10 @@ class content extends Admin_Controller {
 		return $data;
 	}
 
-	private function readfile($filename)
+	/*
+	 Method: readimage($filename)
+	*/
+	private function readimage($filename)
 	{
 		$handle = fopen($filename, "rb");
 		$contents = fread($handle, filesize($filename));
@@ -191,18 +210,31 @@ class content extends Admin_Controller {
 	/*
 	 Method: thumbnail()
 	*/
-	private function thumbnail() {
-		// TODO Thumbnail from database
+	private function makethumbnail($source_image, $width, $height) {
+		$r = $height / $width;
+		$newwidth = 100;
+		$newheight = $newwidth * $r;
+		
 		$config['image_library'] = 'gd2';
-		$config['source_image'] = '/path/to/image/mypic.jpg';
+		$config['source_image'] = $source_image;
 		$config['create_thumb'] = TRUE;
 		$config['maintain_ratio'] = TRUE;
-		$config['width'] = 75;
-		$config['height'] = 50;
+		$config['width'] = $newwidth;
+		$config['height'] = $newheight;
 
 		$this->load->library('image_lib', $config);
 
-		$this->image_lib->resize();
+		if ( ! $this->image_lib->resize() )
+		{
+			$this->media_model->error = $this->image_lib->display_errors();
+
+			return null;
+		}
+
+		$ext = pathinfo($source_image, PATHINFO_EXTENSION);
+		$result = dirname($source_image) . '/' . basename($source_image, '.' . $ext) . '_thumb.' . $ext;
+
+		return $result;
 	}
 
 	/*
@@ -266,13 +298,18 @@ class content extends Admin_Controller {
 		if ( ! empty($uploaddata) )
 		{
 			$filename = $uploaddata['full_path'];
-			$data['media_mime'] = 'image/' . $uploaddata['image_type'];
-			//$data['media_media'] = readfile($filename);
-			$data['media_media'] = $filename;
+			$thumbfile = $this->makethumbnail($filename, $uploaddata['image_width'], $uploaddata['image_height']);
 
-			if (is_file($filename))
-			{
+			$data['media_mime'] = 'image/' . $uploaddata['image_type'];
+			$data['media_media'] = $this->readimage($filename);
+			$data['media_thumbnail'] = $this->readimage($thumbfile);
+
+			if (is_file($filename)) {
 				unlink($filename);
+			}
+
+			if (is_file($thumbfile)) {
+				unlink($thumbfile);
 			}
 		}
 		else

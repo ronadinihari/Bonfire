@@ -18,6 +18,7 @@
 		<th>Description</th>
 		<th>MIME</th>
 		<th>Media</th>
+		<th>Thumbnail</th>
 		
 		</thead>
 		<tbody>

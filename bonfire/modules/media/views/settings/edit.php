@@ -41,6 +41,11 @@ $id = isset($media['id']) ? "/".$media['id'] : '';
         <input id="media_media" type="text" name="media_media"  value="<?php echo set_value('media_media', isset($media['media_media']) ? $media['media_media'] : ''); ?>"  />
 </div>
 
+<div>
+        <?php echo form_label('Thumbnail', 'media_thumbnail'); ?> <span class="required">*</span>
+        <input id="media_thumbnail" type="text" name="media_thumbnail"  value="<?php echo set_value('media_thumbnail', isset($media['media_thumbnail']) ? $media['media_thumbnail'] : ''); ?>"  />
+</div>
+
 
 
 	<div class="text-right">

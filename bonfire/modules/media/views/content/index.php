@@ -1,23 +1,40 @@
 
-<div class="view split-view">
-	
+<div
+	class="view split-view">
+
 	<!-- media List -->
 	<div class="view">
-	
+
+
+
 	<?php if (isset($records) && is_array($records) && count($records)) : ?>
 		<div class="scrollable">
 			<div class="list-view" id="role-list">
-				<?php foreach ($records as $record) : ?>
-					<?php $record = (array)$record;?>
-					<div class="list-item" data-id="<?php echo $record['id']; ?>">
-						<p>
-							<b><?php echo (empty($record['media_name']) ? $record['id'] : $record['media_name']); ?></b><br/>
-							<span class="small"><?php echo (empty($record['media_description']) ? lang('media_edit_text') : $record['media_description']);  ?></span>
-						</p>
-					</div>
+
+
+			<?php foreach ($records as $record) : ?>
+
+
+			<?php $record = (array)$record;?>
+				<div class="list-item" data-id="<?php echo $record['id']; ?>">
+					<p>
+						<b><?php echo (empty($record['media_name']) ? $record['id'] : $record['media_name']); ?>
+						</b><br /> <span class="small"><?php echo (empty($record['media_description']) ? lang('media_edit_text') : $record['media_description']);  ?>
+						</span>
+					</p>
+				</div>
+				
+				
+				
+				
 				<?php endforeach; ?>
-			</div>	<!-- /list-view -->
+			</div>
+			<!-- /list-view -->
 		</div>
+		
+		
+		
+		
 	
 	<?php else: ?>
 	
@@ -30,50 +47,99 @@
 	<!-- media Editor -->
 	<div id="content" class="view">
 		<div class="scrollable" id="ajax-content">
-				
+
 			<div class="box create rounded">
-				<a class="button good ajaxify" href="<?php echo site_url(SITE_AREA .'/content/media/create')?>"><?php echo lang('media_create_new_button');?></a>
+				<a class="button good ajaxify"
+					href="<?php echo site_url(SITE_AREA .'/content/media/create')?>"><?php echo lang('media_create_new_button');?>
+				</a>
 
-				<h3><?php echo lang('media_create_new');?></h3>
+				<h3>
+					
+				<?php echo lang('media_create_new');?></h3>
 
-				<p><?php echo lang('media_edit_text'); ?></p>
+				<p>
+					
+				<?php echo lang('media_edit_text'); ?></p>
 			</div>
 			<br />
+			
+			
+			
+			
 				<?php if (isset($records) && is_array($records) && count($records)) : ?>
 				
-					<h2>media</h2>
+					<h2>Media</h2>
 	<table>
-		<thead>
-		<th>bf_users_id</th>
-		<th>Date</th>
-		<th>Title</th>
-		<th>Description</th>
-		<th>MIME</th>
-		<th>Media</th><th><?php echo lang('media_actions'); ?></th>
-		</thead>
 		<tbody>
-<?php
-foreach ($records as $record) : ?>
-<?php $record = (array)$record;?>
-			<tr>
-<?php
-	foreach($record as $field => $value)
-	{
-		if($field != "id") {
-?>
-				<td><?php echo ($field == 'deleted') ? (($value > 0) ? lang('media_true') : lang('media_false')) : $value; ?></td>
-
-<?php
-		}
-	}
-?>
-				<td><?php echo anchor(SITE_AREA .'/content/media/edit/'. $record['id'], lang('media_edit'), 'class="ajaxify"'); ?></td>
-			</tr>
-<?php endforeach; ?>
+				<?php
+							$cells = array();
+							$cellid = 0;
+							          
+							foreach ($records as $record) : $record = (array) $record;
+								
+								$image_properties = array(
+								          'src' => site_url(SITE_AREA . '/content/media/thumbnail/' . $record['id']),
+								          'alt' => 'Fail loading ' . SITE_AREA . '/content/media/thumbnail/' . $record['id'],
+								          'title' => $record['media_judul'],
+								          'rel' => 'lightbox',
+								);
+								
+								$img = img($image_properties);
+								$cells[$cellid++] = 
+									'<div align="center">'.
+									anchor(SITE_AREA . '/content/media/image/' . $record['id'], $img).
+									br().
+									heading($record['media_judul']).
+									br().
+									'</div>'.
+									$record['media_tanggalupload'].
+									br().
+									$record['media_deskripsi'].
+									br().
+									anchor(SITE_AREA .'/content/media/edit/'. $record['id'], lang('media_edit'), 'class="ajaxify"');
+								
+							endforeach;
+							
+							$cellcount = $cellid;
+							$col = 0;
+							$maxcol = 4;
+								
+							for ($i = 0; $i < $cellcount; $i++)
+							{
+							
+								if ($col == 0) {
+									?>
+									<tr>
+									<?php
+								}
+								?>
+								<td width="100">
+								<?php echo $cells[$i]; ?>
+								</td>
+								<?php
+							
+								if ($i == $cellcount-1 && $col < $maxcol - 1) {
+									for ($j = 0; $j < $maxcol - 1 - $col; $j++) {
+										?>
+										<td width="100"></td>
+										<?php
+									}
+								} elseif ($col == $maxcol - 1) {
+									?>
+									</tr>
+									<?php
+									
+									$col = 0;
+								} else {
+									$col++;
+								}
+							}
+						endif;
+				?>
 		</tbody>
 	</table>
-				<?php endif; ?>
-				
-		</div>	<!-- /ajax-content -->
-	</div>	<!-- /content -->
+		</div>
+		<!-- /ajax-content -->
+	</div>
+	<!-- /content -->
 </div>

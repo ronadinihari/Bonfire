@@ -13,6 +13,7 @@ class Migration_Install_media extends Migration {
 			$this->dbforge->add_field("`media_deskripsi` VARCHAR(500) NOT NULL");
 			$this->dbforge->add_field("`media_mime` VARCHAR(20) NOT NULL");
 			$this->dbforge->add_field("`media_media` LONGBLOB NOT NULL");
+			$this->dbforge->add_field("`media_thumbnail` LONGBLOB NOT NULL");
 		$this->dbforge->add_key('id', true);
 		$this->dbforge->create_table('media');
 
