@@ -7,12 +7,18 @@
 
 
 
+
+
 	<?php if (isset($records) && is_array($records) && count($records)) : ?>
 		<div class="scrollable">
 			<div class="list-view" id="role-list">
 
 
+
+
 			<?php foreach ($records as $record) : ?>
+
+
 
 
 			<?php $record = (array)$record;?>
@@ -27,10 +33,18 @@
 				
 				
 				
+				
+				
+				
+				
 				<?php endforeach; ?>
 			</div>
 			<!-- /list-view -->
 		</div>
+		
+		
+		
+		
 		
 		
 		
@@ -55,13 +69,21 @@
 
 				<h3>
 					
+					
+					
 				<?php echo lang('media_create_new');?></h3>
 
 				<p>
 					
+					
+					
 				<?php echo lang('media_edit_text'); ?></p>
 			</div>
 			<br />
+			
+			
+			
+			
 			
 			
 			
@@ -89,7 +111,9 @@
 									'<div align="center">'.
 									anchor(SITE_AREA . '/content/media/image/' . $record['id'], $img).
 									br().
-									heading($record['media_judul']).
+									'<div style="font-weight: bold">'.
+									$record['media_judul'].
+									'</div>'.
 									br().
 									'</div>'.
 									$record['media_tanggalupload'].
