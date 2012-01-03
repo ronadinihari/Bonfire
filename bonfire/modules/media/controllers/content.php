@@ -31,6 +31,7 @@ class content extends Admin_Controller {
 	public function index()
 	{
 		$data = array();
+		$this->media_model->order_by('media_tanggalupload', 'desc');
 		$data['records'] = $this->media_model->find_all();
 
 		Assets::add_js($this->load->view('content/js', null, true), 'inline');
