@@ -1,9 +1,18 @@
 
+								
+<style type="text/css">
+.gallery-td { 
+	padding:10px;
+}
+</style>
+
 <div
 	class="view split-view">
 
 	<!-- media List -->
 	<div class="view">
+
+
 
 
 
@@ -16,7 +25,11 @@
 
 
 
+
+
 			<?php foreach ($records as $record) : ?>
+
+
 
 
 
@@ -37,10 +50,18 @@
 				
 				
 				
+				
+				
+				
+				
 				<?php endforeach; ?>
 			</div>
 			<!-- /list-view -->
 		</div>
+		
+		
+		
+		
 		
 		
 		
@@ -71,15 +92,23 @@
 					
 					
 					
+					
+					
 				<?php echo lang('media_create_new');?></h3>
 
 				<p>
 					
 					
 					
+					
+					
 				<?php echo lang('media_edit_text'); ?></p>
 			</div>
 			<br />
+			
+			
+			
+			
 			
 			
 			
@@ -105,8 +134,8 @@
 								          'title' => $record['media_judul'],
 								          'rel' => 'lightbox',
 								);
-								
 								$img = img($image_properties);
+								
 								$cells[$cellid++] = 
 									'<div align="center">'.
 									anchor(SITE_AREA . '/content/media/image/' . $record['id'], $img).
@@ -137,7 +166,7 @@
 									<?php
 								}
 								?>
-								<td width="100">
+								<td width="100" class="gallery-td">
 								<?php echo $cells[$i]; ?>
 								</td>
 								<?php
@@ -145,7 +174,7 @@
 								if ($i == $cellcount-1 && $col < $maxcol - 1) {
 									for ($j = 0; $j < $maxcol - 1 - $col; $j++) {
 										?>
-										<td width="100"></td>
+										<td width="100" class="gallery-td"></td>
 										<?php
 									}
 								} elseif ($col == $maxcol - 1) {
