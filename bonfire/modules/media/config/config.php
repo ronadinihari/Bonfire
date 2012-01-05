@@ -2,5 +2,5 @@
 	'description'	=> 'Your module description',
 	'name'		=> 'media',
 	'version'		=> '0.0.1',
-	'author'		=> 'rona_dinihari'
+	'author'		=> 'rona_dinihari',
 );

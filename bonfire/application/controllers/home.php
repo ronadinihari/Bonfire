@@ -13,7 +13,7 @@ class Home extends Front_Controller {
 		$logged_in = isset ($cookie['logged_in']);
 	
 		if ($logged_in) {
-			Template::redirect(SITE_AREA .'/content/media');
+			Template::redirect('/media');
 		}
 		
 		Template::render();
