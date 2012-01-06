@@ -23,7 +23,7 @@ $config['auth.use_extended_profile'] = 0;
 	THE SOFTWARE.
 */
  
-$config['site.title'] = "Android Media Uploader";
+$config['site.title'] = "Android Media Upload";
 $config['site.system_email'] = "rona.dinihari@gmail.com";
 $config['site.status'] = 1;		// 0 = offline, 1 = online
 $config['site.list_limit'] = 25;

@@ -22,6 +22,7 @@ $lang['media_delete_confirm']			= 'Are you sure you want to delete this media?';
 $lang['media_edit_heading']			= 'Edit media';
 $lang['media_no_file'] = 'No file selected';
 $lang['media_owner_only'] = 'Only owner or admin may alter this media';
+$lang['media_not_logged_in'] = 'Access denied. You are not logged in.';
 
 // Activities
 $lang['media_act_create_record']			= 'Created record with ID';

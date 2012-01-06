@@ -21,6 +21,7 @@ class media extends Front_Controller {
 		$this->load->helper('application');
 		$this->load->model('activities/Activity_model', 'activity_model', true);
 		$this->load->library('image_lib');
+		$this->load->model('users/User_model', 'user_model');
 
 		Assets::add_css('flick/jquery-ui-1.8.13.custom.css');
 		Assets::add_js('jquery-ui-1.8.8.min.js');
@@ -35,11 +36,20 @@ class media extends Front_Controller {
 
 	Displays a list of form data.
 	*/
-	public function index()
+	public function index($pageindex = 0)
 	{
+		$this->restrict();
+
+		$limit = 12;
+		$offset = $pageindex * $limit;
+
 		$data = array();
 		$this->media_model->order_by('media_tanggalupload', 'desc');
+		$this->media_model->limit($limit, $offset);
 		$data['records'] = $this->media_model->find_all();
+		$data['usernames'] = $this->getusernames($data['records']);
+		$data['pagecount'] = ceil($this->media_model->count_all() / $limit);
+		$data['pageindex'] = $pageindex;
 
 		Assets::add_js($this->load->view('content/js', null, true), 'inline');
 
@@ -57,7 +67,7 @@ class media extends Front_Controller {
 	*/
 	public function create()
 	{
-		// 		$this->auth->restrict('Media.Content.Create');
+		$this->restrict();
 
 		if ($this->input->post('submitcreate'))
 		{
@@ -89,7 +99,7 @@ class media extends Front_Controller {
 	*/
 	public function edit()
 	{
-		// 		$this->auth->restrict('Media.Content.Edit');
+		$this->restrict();
 
 		$id = (int)$this->uri->segment(3);
 
@@ -138,7 +148,7 @@ class media extends Front_Controller {
 	*/
 	public function delete()
 	{
-		// 		$this->auth->restrict('Media.Content.Delete');
+		$this->restrict();
 
 		$id = $this->uri->segment(3);
 
@@ -166,7 +176,7 @@ class media extends Front_Controller {
 	*/
 	public function image($id)
 	{
-		// 		$this->auth->restrict('Media.Content.View');
+		$this->restrict();
 
 		header('Content-Type: ' . $this->getmime($id));
 		echo $this->media_model->get_field($id, 'media_media');
@@ -177,7 +187,7 @@ class media extends Front_Controller {
 	*/
 	public function thumbnail($id)
 	{
-		// 		$this->auth->restrict('Media.Content.View');
+		$this->restrict();
 
 		header('Content-Type: ' . $this->getmime($id));
 		echo $this->media_model->get_field($id, 'media_thumbnail');
@@ -262,6 +272,54 @@ class media extends Front_Controller {
 	private function get_media_bf_users_id($id)
 	{
 		return $this->media_model->get_field($id, 'media_bf_users_id');
+	}
+
+	/*
+	 Method: isloggedin()
+	*/
+	private function isloggedin()
+	{
+		// acessing our userdata cookie
+		$cookie = unserialize($this->input->cookie($this->config->item('sess_cookie_name')));
+		$logged_in = isset ($cookie['logged_in']);
+
+		return $logged_in;
+	}
+
+	/*
+	 Method: restrict()
+	*/
+	private function restrict()
+	{
+		if ( ! $this->isloggedin() ) {
+			Template::set_message(lang('media_not_logged_in'), 'error');
+			Template::redirect('/');
+		}
+	}
+
+	/*
+	 Method: getusername()
+	*/
+	private function getusername($id)
+	{
+		return $this->user_model->get_field($id, 'username');
+	}
+
+	/*
+	 Method: getusernames()
+	*/
+	private function getusernames($records)
+	{
+		$usernames = array();
+		$i = 0;
+
+		if (isset($records) && is_array($records) && count($records)) :
+		foreach ($records as $record) : $record = (array) $record;
+		$usernames[$i++] = $this->getusername($record['media_bf_users_id']);
+		endforeach;
+		endif;
+
+		return $usernames;
 	}
 
 	/*

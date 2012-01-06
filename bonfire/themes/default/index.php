@@ -23,10 +23,11 @@
 	
 		<!-- Header -->
 		<div class="head text-right">
-			<h1>Bonfire</h1>
+			<h1>Android Media Upload</h1>
 		</div>
 
 		<div class="main">
+
 			<?php  
 				// acessing our userdata cookie
 				$cookie = unserialize($this->input->cookie($this->config->item('sess_cookie_name')));
@@ -35,6 +36,7 @@
 
 				if ($logged_in) : ?>
 			<div class="profile">
+				<?php echo config_item('auth.use_usernames') ? (config_item('auth.use_own_names') ? $this->auth->user_name() : $this->auth->username()) : $this->auth->email() ?> |
 				<a href="<?php echo site_url();?>">Home</a> | 
 				<a href="<?php echo site_url('users/profile');?>">Edit Profile</a> | 
 				<a href="<?php echo site_url('logout');?>">Logout</a>
