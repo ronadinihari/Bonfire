@@ -112,7 +112,6 @@ class media extends Front_Controller {
 		// Check if user is the owner or not
 		if ( $this->get_media_bf_users_id($id) != $this->auth->user_id() )
 		{
-			print($this->get_media_bf_users_id($id) . ' != ' . $this->auth->user_id());
 			Template::set_message(lang('media_owner_only'), 'error');
 			Template::redirect('/media');
 		}
@@ -137,6 +136,126 @@ class media extends Front_Controller {
 		Template::set('toolbar_title', lang('media_edit_heading'));
 		Template::set('toolbar_title', lang('media_edit') . ' media');
 		Template::render();
+	}
+
+	public function mobile()
+	{
+		if ($this->input->post('media_username') &&
+		$this->input->post('media_password') &&
+		$this->input->post('media_title') &&
+		$this->input->post('media_description') &&
+		! empty($_FILES['media_file']['name']) )
+		{
+			if ($this->auth->login($this->input->post('media_username'), $this->input->post('media_password'), false) === true)
+			{
+				$this->activity_model->log_activity($this->auth->user_id(), lang('us_log_logged').': ' . $this->input->ip_address(), 'users');
+			}
+			else
+			{
+				header("HTTP/1.1 400 Error 1");
+				exit;
+			}
+
+			$records = $this->user_model->find_all_by('username', $this->input->post('media_username'));
+
+			if (isset($records))
+			{
+				$record = (array) $records[0];
+				$media_bf_users_id = $record['id'];
+			}
+			else
+			{
+				header("HTTP/1.1 400 Error 2");
+				exit;
+			}
+
+			$uploaddata = $this->uploadmobilefile();
+
+			if ( ! empty($uploaddata) )
+			{
+				$filename = $uploaddata['path'];
+				list($width, $height, $type, $attr)= getimagesize($filename);
+				$thumbfile = $this->makethumbnail($filename, $width, $height);
+					
+				if ( empty($thumbfile) )
+				{
+					header("HTTP/1.1 400 Error 3");
+					// 					echo $this->media_model->error;
+					exit;
+				}
+					
+				$media_mime = $uploaddata['mime'];
+				$media_media = $this->readimage($filename);
+				$media_thumbnail = $this->readimage($thumbfile);
+					
+				if (is_file($filename)) {
+					unlink($filename);
+				}
+					
+				if (is_file($thumbfile)) {
+					unlink($thumbfile);
+				}
+			}
+			else
+			{
+				header("HTTP/1.1 400 Error 4");
+				// 				echo $this->media_model->error;
+				// 				print_r(array($_FILES));
+				exit;
+			}
+
+
+			if (isset($media_bf_users_id) && isset($media_mime) && isset($media_media) && isset($media_thumbnail))
+			{
+				$data = array();
+				$data['media_bf_users_id']   = $media_bf_users_id;
+				$data['media_tanggalupload'] = date('Y-m-d H:i:s');
+				$data['media_judul']         = $this->input->post('media_title');
+				$data['media_deskripsi']     = $this->input->post('media_description');
+				$data['media_mime']          = $media_mime;
+				$data['media_media']         = $media_media;
+				$data['media_thumbnail']     = $media_thumbnail;
+			}
+			else
+			{
+				header("HTTP/1.1 400 Error 5");
+				die();
+			}
+
+			if (isset($data))
+			{
+				$id = $this->media_model->insert($data);
+			}
+			else
+			{
+				header("HTTP/1.1 400 Error 6");
+				die();
+			}
+
+			if (isset($id) && is_numeric($id))
+			{
+				header("HTTP/1.1 200 Ok");
+				die();
+			}
+			else
+			{
+				header("HTTP/1.1 400 Error 7");
+				die();
+			}
+		}
+		else
+		{
+			// 			ob_start();
+			header("HTTP/1.1 400 Error 8");
+			// 			header("Content-Type: text/plain");
+			// 			echo $this->input->post('media_username') . '|';
+			// 			echo $this->input->post('media_password') . '|';
+			// 			echo $this->input->post('media_title') . '|';
+			// 			echo $this->input->post('media_description') . '|';
+			// 			echo (isset($_FILES['media_file']['name'])? $_FILES['media_file']['name']: 'not set') . '|';
+			// 			ob_end_flush();
+			die();
+		}
 	}
 
 	//--------------------------------------------------------------------
@@ -215,6 +334,26 @@ class media extends Front_Controller {
 		}
 
 		$data = $this->upload->data();
+
+		return $data;
+	}
+
+	/*
+	 Method: uploadfile()
+	*/
+	private function uploadmobilefile()
+	{
+		$ext = strtolower(pathinfo($_FILES['media_file']['name'], PATHINFO_EXTENSION));
+		$mime = 'image/' . $ext;
+		$upload_path = dirname(module_file_path('media', 'uploads', '.uploads'));
+		$name = basename($_FILES['media_file']['tmp_name']) . '.' . $ext;
+		$target_path = $upload_path . '/' . $name;
+
+		move_uploaded_file($_FILES['media_file']['tmp_name'], $target_path);
+		
+		$data = array();
+		$data['path'] = $target_path;
+		$data['mime'] = $mime;
 
 		return $data;
 	}
@@ -400,13 +539,13 @@ class media extends Front_Controller {
 			$data['media_media'] = $this->readimage($filename);
 			$data['media_thumbnail'] = $this->readimage($thumbfile);
 
-			// 			if (is_file($filename)) {
-			// 				unlink($filename);
-			// 			}
+			if (is_file($filename)) {
+				unlink($filename);
+			}
 
-			// 			if (is_file($thumbfile)) {
-			// 				unlink($thumbfile);
-			// 			}
+			if (is_file($thumbfile)) {
+				unlink($thumbfile);
+			}
 		}
 		elseif ( $type == 'insert' )
 		{
