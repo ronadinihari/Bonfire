@@ -23,7 +23,7 @@ $config['auth.use_extended_profile'] = 0;
 	THE SOFTWARE.
 */
  
-$config['site.title'] = "";
+$config['site.title'] = "Bonfire";
 $config['site.system_email'] = "";
 $config['site.status'] = 1;		// 0 = offline, 1 = online
 $config['site.list_limit'] = 25;
@@ -57,7 +57,7 @@ $config['site.backup_folder']	= 'archives/';
 //--------------------------------------------------------------------
  
 // Can new accounts be registered? 
-$config['auth.allow_register'] = 0;
+$config['auth.allow_register'] = 1;
  
 // Type of login allowed ('email', 'username', 'both')
 $config['auth.login_type'] = "email";
@@ -290,3 +290,14 @@ $config['assets.css_minify'] = FALSE;
 	be encoded based on the HTTP_ACCEPT_ENCODING value.
 */
 $config['assets.encode'] = FALSE;
+
+/*
+	Array containing the currently available shortcuts - these are output in the /ui/views/shortcut_keys file
+*/
+$config['ui.current_shortcuts'] = array(
+	'form_save'      => array('description' => 'Save any form in the admin area.', 'action' => '$("input[name=submit]").click();'), 
+	'goto_content'   => array('description' => 'Jump to the Content context.', 'action' => "document.location='/" . SITE_AREA . "/content';"), 
+	'goto_reports'   => array('description' => 'Jump to the Reports context.', 'action' => "document.location='/" . SITE_AREA . "/reports';"),
+	'goto_settings'  => array('description' => 'Jump to the Settings context.', 'action' => "document.location='/" . SITE_AREA . "/settings';"), 
+	'goto_developer' => array('description' => 'Jump to the Developer context.', 'action' => "document.location='/" . SITE_AREA . "/developer';"),
+);
