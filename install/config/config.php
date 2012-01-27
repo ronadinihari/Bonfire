@@ -14,7 +14,7 @@
 | path to your installation.
 |
 */
-$config['base_url']	= 'http://localhost/~rona_dinihari/amuweb/install/';
+$config['base_url']	= '';
  
 /*
 |--------------------------------------------------------------------------

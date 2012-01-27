@@ -38,6 +38,7 @@ class Reports extends Admin_Controller {
 		$this->auth->restrict('Bonfire.Activities.Manage');
 		
 		$this->lang->load('activities');
+		$this->lang->load('datatable');
 		
 		Template::set('toolbar_title', lang('activity_title'));
 		
@@ -67,7 +68,9 @@ class Reports extends Admin_Controller {
 		Template::set('top_users', $query->result());
 		
 		Template::set('users', $this->user_model->find_all());
-		Template::set('modules', module_list());
+		$modlist = module_list();
+		natsort($modlist);
+		Template::set('modules',$modlist);
 		Template::set('activities', $this->activity_model->find_all());
 		Template::render();
 	}
@@ -231,7 +234,7 @@ class Reports extends Admin_Controller {
 		
 		// set a couple default variables
 		$options = array(0 => 'All');
-		$name = 'All';
+		$name = lang('all');
 		
 		// check if $find_value has anything in it		
 		if ($find_value === FALSE)
@@ -315,6 +318,7 @@ class Reports extends Admin_Controller {
 		$this->db->select('activity, module, activities.created_on AS created, username');
 		Template::set('activity_content', $this->activity_model->find_all());
 		
+		natsort($options);
 		Template::set('select_options', $options);
 		
 		Template::set_view('reports/view');

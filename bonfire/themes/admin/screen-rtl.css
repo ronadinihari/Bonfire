@@ -7,15 +7,16 @@ b, strong { font-weight: bold; }
 img { font-size: 0; }
 
 table {	border-collapse: collapse; border-spacing: 0; }
-th, td, caption { font-weight: normal; vertical-align: top;	text-align: left; }
+th, td, caption { font-weight: normal; vertical-align: top;	text-align: right; }
 
 /* !BASE STYLES */
 html, body { height: 100%; background: #fff; position: relative;  }
 body {
-	font-family:  Geneva, 'Helvetica Neue', Helvetica, Arial sans-serif;
+	font-family:  Tahoma, Geneva, 'Helvetica Neue', Helvetica, Arial sans-serif;
 	color: #444;
 	font-size: 0.625em;		/* Reset base font size to 10px */
-	overflow: hidden;
+	overflow: visible;
+        direction: rtl;
 }
 section { overflow: auto; height: 100%; }
 hr {
@@ -29,7 +30,7 @@ a:link, a:visited { color: #06c; text-decoration: none; }
 a:hover { text-decoration: underline; }
 
 ul, ol {
-	margin-left: 2em;
+	margin-right: 2em;
 	list-style-position: inside;
 }
 
@@ -69,7 +70,7 @@ ul.clean li {
 /* Grids */
 .row:after,.last-column:after{clear:both;display:block;visibility:hidden;overflow:hidden;height:0 !important;line-height:0;font-size:xx-large;content:" x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x ";}
 .row{*zoom:1;}
-.column{float:left;}
+.column{float:right;}
 .size1of1{float:none;}
 .size1of2{width:50%;}
 .size1of3{width:33.33333%;}
@@ -102,9 +103,9 @@ h2 { font-size: 24px;  }
 h3 { font-size: 21px; }
 h4, h5 { font-size: 18px; text-transform: uppercase; font-weight: lighter; }
 h5 { font-size: 14px; color: #000; }
-.text-left { text-align: left; }
+.text-left { text-align: right; }
 .text-center { text-align: center; }
-.text-right { text-align: right; }
+.text-right { text-align: left; }
 .text-justify { text-align: justify; }
 .small { font-size: 90%; font-weight: lighter; line-height: 1.2em; color: #999; font-family: Helvetica, sans-serif; }
 .big-text { font-size: 2.4em; }
@@ -123,7 +124,7 @@ h5 { font-size: 14px; color: #000; }
 }
 .box button,
 .box a.button {
-	float: right; 
+	float: left; 
 	margin-top: 0.6em;
 	padding: 1.3em 2em;
 }
@@ -144,15 +145,15 @@ table td {
 }
 thead th {
 	border-bottom: 1px solid #ccc;
-	text-align: left;
-	padding-left: 5px;
+	text-align: right;
+	padding-right: 5px;
 	color: #999;
 }
 tbody td {
 	padding: 3px 5px;
 }
 tfoot td {
-	text-align: right;
+	text-align: left;
 	padding: 15px 20px 0 20px;
 }
 .ie tbody tr.odd td { background-color: #edf3fe !important; }
@@ -165,14 +166,14 @@ tbody tr:nth-child(even) { background-color: #edf3fe; }
 td.matrix-title {
 	background: #dbe3f0;
 	border-bottom: 1px solid #aab;
-	border-right: 1px solid #aab;
-	text-align: left;
+	border-left: 1px solid #aab;
+	text-align: right;
 }
 .matrix th {
 	padding: 7px 5px;
 	background: #dbe3f0;
 	margin: 0;
-	border-right: 1px solid #aab;
+	border-left: 1px solid #aab;
 	border-bottom: 1px solid #aab;
 }
 
@@ -180,8 +181,8 @@ td.matrix-title {
 label { 
 	display: inline-block;
 	width: 15em; 
-	margin-right: 1.5em;
-	text-align: right;
+	margin-left: 1.5em;
+	text-align: left;
 	line-height: 1.5;
 	vertical-align: top;
 	padding-top: 5px
@@ -229,7 +230,7 @@ fieldset {
 }
 fieldset legend {
 	font-weight: bold;
-	padding-right: 15px;
+	padding-left: 15px;
 	color: #347;
 }
 form div {
@@ -239,12 +240,12 @@ form .spacer {
 	margin-top: 30px;
 }
 form .indent {
-	margin-left: 18em;
+	margin-right: 18em;
 }
 div.submits {
 	margin-top: 30px;
 	padding: 20px 0;
-	text-align: right;
+	text-align: left;
 	border-top: 1px solid #ccc;
 }
 
@@ -276,14 +277,14 @@ noscript {
 #toolbar-left {
 	height: 32px;
 	position: absolute;
-	left: 0px;
+	right: 1px;
 	top: 0px;
 	z-index: 90;
 }
 #toolbar-right {
 	height: 32px;
 	position: absolute;
-	right: 1px;
+	left:0px;
 	top: 0px;
 	z-index: 90;
 }
@@ -300,7 +301,7 @@ noscript {
 	display: block;
 	height: 24px;
 	width: 24px;
-	float: left;
+	float: right;
 	padding: 5px 10px;
 	color: transparent;
 	opacity: 0.5;
@@ -347,20 +348,6 @@ noscript {
 	padding: 7px 0 0 0;
 }
 
-#toolbar #shortkeys_show { 
-	float: left;
-	display: block;
-	text-indent: 0; 
-	width: auto; 
-	color: #ddd;
-	font-size: 14px;
-	line-height: 24px;
-	vertical-align: top;
-	padding: 7px 10px 0 0;
-}
-
-#toolbar #shortkeys_show:hover{cursor:pointer }
-
 #header {
 	overflow: hidden;
 }
@@ -381,13 +368,13 @@ noscript {
 	border-bottom: 1px solid #999;
 	z-index: 3;
 }
-.nav-sub li { position: relative; display: block; width: auto; float: left; }
+.nav-sub li { position: relative; display: block; width: auto; float: right; }
 .nav-sub a:link,
 .nav-sub a:visited,
 .nav-sub li > span {
 	display: block;
 	width: auto;
-	float: left;
+	float: right;
 	padding: 0px 10px 0px 10px;
 	font-size: 14px;
 	line-height: 28px;
@@ -401,8 +388,8 @@ noscript {
 }
 .nav-sub li ul {
 	position: absolute;
-	margin-left: 0;
-	left: 0;
+	margin-right: 0;
+	right: 0;
 	top: 27px;
 	display: none;
 	opacity: 0;
@@ -422,7 +409,7 @@ noscript {
 .nav-sub li:hover ul {
 	display: block;
 	opacity: 0.94;
-	margin-left: 10px;
+	margin-right: 10px;
 }
 .nav-sub ul li { 
 	list-style: none; 
@@ -452,6 +439,7 @@ noscript {
 	color: #999;
 	font-weight: normal;
 	font-size: 20px;
+        float: left;
 	line-height: 24px;
 }
 
@@ -506,6 +494,7 @@ noscript {
 	width: 700px;
 	max-width: 680px;
 	margin: 0 0 25px 0;
+        direction: ltr;
 }
 
 /*
@@ -536,18 +525,4 @@ noscript {
 	padding: 10px;
 	margin: 0 auto;
 }
-
-/*
-	Dialog
-*/
-div.ui-dialog {border: 2px solid #ccc}
-div.ui-dialog div.ui-dialog-titlebar {padding:.4em 1em; background: #ccc;}
-div.ui-dialog .ui-dialog-titlebar-close {float: right; margin: 0;padding: 1px;height: 18px;}
-div.ui-dialog a.ui-dialog-titlebar-close:hover {float: right; margin: 0;padding: 1px;height: 18px;}
-
-div.ui-dialog a.ui-dialog-titlebar-close:hover {float: right; margin: 0;padding: 1px;height: 18px;}
-
-div.ui-dialog div#shortkeys_dialog ul {list-style: none;}
-div.ui-dialog div#shortkeys_dialog ul li span {width: 80px;display:inline-block}
-
-.ui-widget-overlay {opacity: .50; position: absolute;top: 0;left: 0;background: #000}
+#debug{direction: ltr;}

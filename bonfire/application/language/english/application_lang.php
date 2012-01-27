@@ -110,6 +110,8 @@ $lang['bf_required_note']		= 'Required fields are in <b>bold</b>.';
 $lang['bf_show_profiler']		= 'Show Admin Profiler?';
 $lang['bf_show_front_profiler']	= 'Show Front End Profiler?';
 
+$lang['bf_cache_not_writable']  = 'The application cache folder is not writable';
+
 //--------------------------------------------------------------------
 // MY_Model
 //--------------------------------------------------------------------
@@ -135,3 +137,12 @@ $lang['bf_context_developer']	= 'Developer';
 // Activities
 //--------------------------------------------------------------------
 $lang['bf_act_settings_saved']	= 'App settings saved from';
+$lang['bf_unauthorized_attempt']= 'unsuccessfully attempted to access a page which required the following permission "%s" from ';
+
+$lang['bf_keyboard_shortcuts']		= 'Available keyboard shortcuts:';
+
+//--------------------------------------------------------------------
+// Common
+//--------------------------------------------------------------------
+$lang['bf_question_mark']	= '?';
+$lang['bf_language_direction']	= 'ltr';
