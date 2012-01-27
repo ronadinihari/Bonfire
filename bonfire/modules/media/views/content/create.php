@@ -10,7 +10,7 @@ if( isset($media) ) {
 }
 $id = isset($media['id']) ? "/".$media['id'] : '';
 ?>
-<?php echo form_open($this->uri->uri_string(), 'class="constrained ajax-form"'); ?>
+<?php echo form_open_multipart($this->uri->uri_string()); ?>
 <div>
         <?php echo form_label('Title', 'media_judul'); ?> <span class="required">*</span>
         <input id="media_judul" type="text" name="media_judul" maxlength="50" value="<?php echo set_value('media_judul', isset($media['media_judul']) ? $media['media_judul'] : ''); ?>"  />
@@ -22,14 +22,14 @@ $id = isset($media['id']) ? "/".$media['id'] : '';
 </div>
 
 <div>
-		<?php echo form_label('File', 'media_file'); ?> <span class="required">*</span>
-		<input type="file" name="userfile" />
+		<?php echo form_label('', ''); ?>
+		<input id="media_file" type="file" name="media_file" />
 </div>
 
 
 
 	<div class="text-right">
 		<br/>
-		<input type="submit" name="submitcreate" value="Create media" /> or <?php echo anchor(SITE_AREA .'/content/media', lang('media_cancel')); ?>
+		<input type="submit" name="submit_create" value="Create media" /> or <?php echo anchor(SITE_AREA .'/content/media', lang('media_cancel')); ?>
 	</div>
 	<?php echo form_close(); ?>

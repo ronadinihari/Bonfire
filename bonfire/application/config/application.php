@@ -57,7 +57,7 @@ $config['site.backup_folder']	= 'archives/';
 //--------------------------------------------------------------------
  
 // Can new accounts be registered? 
-$config['auth.allow_register'] = 1;
+$config['auth.allow_register'] = 0;
  
 // Type of login allowed ('email', 'username', 'both')
 $config['auth.login_type'] = "email";

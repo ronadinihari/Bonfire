@@ -38,7 +38,7 @@ class media extends Front_Controller {
 	*/
 	public function index($pageindex = 0)
 	{
-		$this->restrict();
+		$this->restrict('Media.View');
 
 		$limit = 12;
 		$offset = $pageindex * $limit;
@@ -67,7 +67,7 @@ class media extends Front_Controller {
 	*/
 	public function create()
 	{
-		$this->restrict();
+		$this->restrict('Media.Create');
 
 		if ($this->input->post('submitcreate'))
 		{
@@ -99,7 +99,7 @@ class media extends Front_Controller {
 	*/
 	public function edit()
 	{
-		$this->restrict();
+		$this->restrict('Media.Edit');
 
 		$id = (int)$this->uri->segment(3);
 
@@ -110,7 +110,16 @@ class media extends Front_Controller {
 		}
 
 		// Check if user is the owner or not
-		if ( $this->get_media_bf_users_id($id) != $this->auth->user_id() )
+		if (!class_exists('Role_model'))
+		{
+			$this->load->model('roles/Role_model','role_model');
+		}
+
+		$role = array($this->role_model->find_all_by('role_id', $this->auth->role_id()));
+		$role = array($role[0][0]);
+		$role_name = $role[0]->role_name;
+
+		if ( $this->get_media_bf_users_id($id) != $this->auth->user_id() && !($role_name == 'Administrator' || $role_name == 'Editor') )
 		{
 			Template::set_message(lang('media_owner_only'), 'error');
 			Template::redirect('/media');
@@ -140,6 +149,8 @@ class media extends Front_Controller {
 
 	public function mobile()
 	{
+		$this->restrict('Media.Create');
+
 		if ($this->input->post('media_username') &&
 		$this->input->post('media_password') &&
 		$this->input->post('media_title') &&
@@ -267,12 +278,28 @@ class media extends Front_Controller {
 	*/
 	public function delete()
 	{
-		$this->restrict();
+		$this->restrict('Media.Delete');
 
 		$id = $this->uri->segment(3);
 
 		if (!empty($id))
 		{
+			// Check if user is the owner or not
+			if (!class_exists('Role_model'))
+			{
+				$this->load->model('roles/Role_model','role_model');
+			}
+
+			$role = array($this->role_model->find_all_by('role_id', $this->auth->role_id()));
+			$role = array($role[0][0]);
+			$role_name = $role[0]->role_name;
+
+			if ( $this->get_media_bf_users_id($id) != $this->auth->user_id() && !($role_name == 'Administrator' || $role_name == 'Editor') )
+			{
+				Template::set_message(lang('media_owner_only'), 'error');
+				Template::redirect('/media');
+			}
+
 			if ($this->media_model->delete($id))
 			{
 				// Log the activity
@@ -295,7 +322,7 @@ class media extends Front_Controller {
 	*/
 	public function image($id)
 	{
-		$this->restrict();
+		$this->restrict('Media.View');
 
 		header('Content-Type: ' . $this->getmime($id));
 		echo $this->media_model->get_field($id, 'media_media');
@@ -306,7 +333,7 @@ class media extends Front_Controller {
 	*/
 	public function thumbnail($id)
 	{
-		$this->restrict();
+		$this->restrict('Media.View');
 
 		header('Content-Type: ' . $this->getmime($id));
 		echo $this->media_model->get_field($id, 'media_thumbnail');
@@ -350,7 +377,7 @@ class media extends Front_Controller {
 		$target_path = $upload_path . '/' . $name;
 
 		move_uploaded_file($_FILES['media_file']['tmp_name'], $target_path);
-		
+
 		$data = array();
 		$data['path'] = $target_path;
 		$data['mime'] = $mime;

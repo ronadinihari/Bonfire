@@ -52,7 +52,7 @@ class content extends Admin_Controller {
 	{
 		$this->auth->restrict('Media.Content.Create');
 
-		if ($this->input->post('submitcreate'))
+		if ($this->input->post('submit_create'))
 		{
 			if ($insert_id = $this->save_media())
 			{
@@ -92,7 +92,7 @@ class content extends Admin_Controller {
 			redirect(SITE_AREA .'/content/media');
 		}
 
-		if ($this->input->post('submitedit'))
+		if ($this->input->post('submit_edit'))
 		{
 			if ($this->save_media('update', $id))
 			{
@@ -184,7 +184,7 @@ class content extends Admin_Controller {
 
 		$this->load->library('upload', $config);
 
-		if ( ! $this->upload->do_upload() )
+		if ( ! $this->upload->do_upload('media_file') )
 		{
 			$this->media_model->error = $this->upload->display_errors();
 
@@ -213,7 +213,7 @@ class content extends Admin_Controller {
 	*/
 	private function makethumbnail($source_image, $width, $height) {
 		$r = $height / $width;
-		$newwidth = 100;
+		$newwidth = 200;
 		$newheight = $newwidth * $r;
 
 		$config['image_library'] = 'gd2';

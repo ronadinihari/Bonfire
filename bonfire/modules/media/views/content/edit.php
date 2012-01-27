@@ -22,7 +22,7 @@ $id = isset($media['id']) ? "/".$media['id'] : '';
 </div>
 
 <div>
-        <?php echo form_label('', ''); ?>
+        <?php echo form_label('Current Picture', ''); ?>
         <?php
 			$image_properties = array(
 			          'src' => site_url(SITE_AREA . '/content/media/thumbnail/' . $media['id']),
@@ -37,15 +37,15 @@ $id = isset($media['id']) ? "/".$media['id'] : '';
 </div>
 
 <div>
-        <?php echo form_label('Thumbnail', 'media_thumbnail'); ?> <span class="required">*</span>
-		<input type="file" name="userfile" />
+        <?php echo form_label('New Picture', ''); ?> <span class="required">*</span>
+		<input id="media_file" type="file" name="media_file" />
 </div>
 
 
 
 	<div class="text-right">
 		<br/>
-		<input type="submit" name="submitedit" value="Edit media" /> or <?php echo anchor(SITE_AREA .'/content/media', lang('media_cancel')); ?>
+		<input type="submit" name="submit_edit" value="Edit media" /> or <?php echo anchor(SITE_AREA .'/content/media', lang('media_cancel')); ?>
 	</div>
 	<?php echo form_close(); ?>
 
